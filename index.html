@@ -13,259 +13,366 @@
         }
 
         :root {
-            --primary: #6c5ce7;
-            --primary-dark: #5a4bd1;
-            --secondary: #00cec9;
-            --dark: #0a0a1a;
-            --dark-light: #1a1a2e;
-            --text: #e0e0e0;
-            --text-muted: #a0a0b0;
-            --gold: #f9ca24;
+            --netflix-red: #E50914;
+            --netflix-red-hover: #b20710;
+            --netflix-black: #000000;
+            --netflix-dark: #141414;
+            --netflix-card: #1a1a1a;
+            --netflix-border: #333333;
+            --text: #ffffff;
+            --text-muted: #b3b3b3;
+            --text-dark: #808080;
+            --gold: #ffc107;
             --whatsapp: #25d366;
+            --whatsapp-hover: #1ebe57;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--dark);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: var(--netflix-black);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.5;
             overflow-x: hidden;
+            letter-spacing: 0.02em;
         }
 
+        /* Loader estilo Netflix */
         .loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--dark);
+            background: #000000;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s, visibility 0.5s;
+            transition: opacity 0.6s, visibility 0.6s;
         }
         .loader.hidden {
             opacity: 0;
             visibility: hidden;
         }
-        .loader-circle {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(108, 92, 231, 0.2);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+        .loader-netflix {
+            position: relative;
+            width: 70px;
+            height: 70px;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .loader-netflix span {
+            position: absolute;
+            width: 12px;
+            height: 100%;
+            background: var(--netflix-red);
+            border-radius: 2px;
+            animation: netflix-load 1.2s infinite ease-in-out;
+        }
+        .loader-netflix span:nth-child(1) { left: 0; animation-delay: 0s; }
+        .loader-netflix span:nth-child(2) { left: 22px; animation-delay: 0.2s; }
+        .loader-netflix span:nth-child(3) { left: 44px; animation-delay: 0.4s; }
+        @keyframes netflix-load {
+            0%, 100% { transform: scaleY(0.4); opacity: 0.3; }
+            50% { transform: scaleY(1); opacity: 1; }
+        }
 
+        /* Header no estilo Netflix */
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 10, 26, 0.95);
-            backdrop-filter: blur(20px);
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 60%, transparent 100%);
             z-index: 1000;
-            padding: 1rem 5%;
+            padding: 1.2rem 4%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s;
+            transition: all 0.4s;
         }
         header.scrolled {
-            padding: 0.5rem 5%;
-            background: rgba(10, 10, 26, 0.98);
+            background: rgba(0, 0, 0, 0.97);
+            padding: 0.7rem 4%;
         }
         .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
         }
         .logo span:first-child { color: #fff; }
-        .logo span:last-child { color: var(--secondary); }
-        .logo i { color: var(--primary); margin-right: 8px; }
+        .logo span:last-child { color: var(--netflix-red); }
+        .logo i { display: none; }
 
         .header-cta {
-            background: var(--primary);
+            background: var(--netflix-red);
             color: #fff;
-            padding: 12px 28px;
-            border-radius: 50px;
+            padding: 10px 24px;
+            border-radius: 4px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-weight: 700;
-            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
         }
         .header-cta:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
+            background: var(--netflix-red-hover);
+            transform: scale(1.05);
         }
 
+        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 120px 5% 80px;
-            gap: 40px;
+            padding: 140px 5% 80px;
+            gap: 50px;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(229,9,20,0.08) 0%, transparent 70%),
+                        linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
         }
-        .hero-content { max-width: 650px; z-index: 1; }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.015) 2px,
+                    rgba(255,255,255,0.015) 4px
+                );
+            pointer-events: none;
+        }
+        .hero-content { max-width: 600px; z-index: 1; }
         .hero-badge {
-            background: rgba(108, 92, 231, 0.15);
-            color: var(--primary);
-            padding: 8px 20px;
-            border-radius: 50px;
+            background: rgba(229, 9, 20, 0.15);
+            color: var(--netflix-red);
+            padding: 6px 18px;
+            border-radius: 4px;
             display: inline-block;
             margin-bottom: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid rgba(229,9,20,0.2);
         }
-        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; }
-        .gradient-text {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.15;
+            letter-spacing: -1px;
         }
-        .hero p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 35px; }
+        .gradient-text { color: var(--netflix-red); }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+        .hero p strong { color: #fff; font-weight: 700; }
         .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
-        
-        .btn-primary, .btn-whatsapp {
-            padding: 16px 35px;
-            border-radius: 50px;
+
+        .btn-primary {
+            padding: 14px 32px;
+            border-radius: 4px;
             text-decoration: none;
             font-weight: 700;
+            font-size: 1rem;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s;
+            transition: all 0.2s;
+            background: var(--netflix-red);
+            color: #fff;
+            letter-spacing: 0.5px;
         }
-        .btn-primary { background: var(--primary); color: #fff; }
-        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-3px); }
-        .btn-whatsapp { background: var(--whatsapp); color: #fff; }
-        .btn-whatsapp:hover { background: #1ebe57; transform: translateY(-3px); }
+        .btn-primary:hover {
+            background: var(--netflix-red-hover);
+            transform: scale(1.05);
+        }
+        .btn-whatsapp {
+            background: var(--whatsapp);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+        }
+        .btn-whatsapp:hover {
+            background: var(--whatsapp-hover);
+            transform: scale(1.05);
+        }
 
-        .tv-container { position: relative; width: 420px; height: 340px; }
+        /* TV Screen */
+        .tv-container { position: relative; width: 440px; height: 340px; }
         .tv-screen {
-            width: 400px;
-            height: 260px;
-            background: #0a0a1a;
-            border-radius: 15px;
-            border: 4px solid #2a2a4a;
+            width: 420px;
+            height: 250px;
+            background: #0a0a0a;
+            border-radius: 6px;
+            border: 3px solid #2a2a2a;
             overflow: hidden;
             position: relative;
+            box-shadow: 0 0 80px rgba(229,9,20,0.08), 0 20px 40px rgba(0,0,0,0.5);
         }
         .channel-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2px;
-            padding: 2px;
+            gap: 1px;
+            padding: 1px;
             position: absolute;
             inset: 0;
+            background: #0a0a0a;
         }
         .channel-thumb {
-            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
-            border-radius: 8px;
+            background: #111111;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 6px;
             position: relative;
+            transition: background 0.3s;
+            cursor: pointer;
         }
-        .channel-thumb i {
-            font-size: 1.5rem;
-        }
+        .channel-thumb:hover { background: #1a1a1a; }
+        .channel-thumb i { font-size: 1.6rem; }
         .channel-thumb span {
-            font-size: 0.6rem;
-            font-weight: 600;
-            color: var(--text-muted);
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         .live-dot {
             position: absolute;
-            top: 5px;
-            right: 5px;
-            width: 8px;
-            height: 8px;
-            background: red;
+            top: 8px;
+            right: 8px;
+            width: 7px;
+            height: 7px;
+            background: var(--netflix-red);
             border-radius: 50%;
-            animation: pulse 1.5s infinite;
+            animation: pulse 1.8s infinite;
+            box-shadow: 0 0 6px rgba(229,9,20,0.6);
         }
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.5); }
         }
-        .tv-stand { width: 120px; height: 15px; background: #2a2a4a; margin: 0 auto; border-radius: 0 0 10px 10px; }
-        .tv-base { width: 200px; height: 10px; background: #2a2a4a; margin: 5px auto 0; border-radius: 5px; }
+        .tv-stand { width: 100px; height: 12px; background: #2a2a2a; margin: 0 auto; border-radius: 0 0 4px 4px; }
+        .tv-base { width: 180px; height: 8px; background: #222; margin: 4px auto 0; border-radius: 2px; }
 
-        /* Cores dos ícones dos canais */
+        /* Cores dos ícones */
         .fa-futbol, .fa-football-ball { color: #4CAF50; }
         .fa-trophy { color: #FF9800; }
         .fa-crown { color: #FFC107; }
-        .fa-star { color: #9C27B0; }
+        .fa-star { color: #CE93D8; }
         .fa-film { color: #E91E63; }
-        .fa-video { color: #2196F3; }
+        .fa-video { color: #64B5F6; }
         .fa-play-circle { color: #E50914; }
-        .fa-magic { color: #0066FF; }
+        .fa-magic { color: #42A5F5; }
         .fa-amazon { color: #FF9900; }
-        .fa-tv { color: #00C853; }
-        .fa-music { color: #FF5722; }
-        .fa-bolt { color: #FFEB3B; }
+        .fa-tv { color: #66BB6A; }
+        .fa-music { color: #FF7043; }
+        .fa-bolt { color: #FFD54F; }
 
+        /* Trust Strip */
         .trust-strip {
-            background: var(--dark-light);
-            padding: 20px 5%;
+            background: #0a0a0a;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+            padding: 22px 5%;
             display: flex;
             justify-content: center;
-            gap: 50px;
+            gap: 60px;
             flex-wrap: wrap;
         }
-        .trust-item { display: flex; align-items: center; gap: 12px; color: var(--text-muted); }
-        .trust-item i { font-size: 1.4rem; color: var(--secondary); }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .trust-item i { font-size: 1.3rem; color: var(--netflix-red); }
 
-        .features { padding: 100px 5%; }
+        /* Features */
+        .features { padding: 100px 5% 80px; background: #000000; }
         .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-size: 2.5rem; margin-bottom: 15px; }
-        .section-title p { color: var(--text-muted); }
-        
+        .section-title h2 { font-size: 2.8rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; }
+        .section-title p { color: var(--text-muted); font-size: 1.1rem; font-weight: 400; }
+
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            max-width: 1100px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 1150px;
             margin: 0 auto;
         }
         .feature-card {
-            background: var(--dark-light);
-            padding: 35px 25px;
-            border-radius: 20px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+            padding: 40px 28px;
+            border-radius: 6px;
             text-align: center;
             transition: all 0.3s;
+            border: 1px solid #1f1f1f;
+            cursor: default;
         }
-        .feature-card:hover { transform: translateY(-8px); }
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: #333;
+            background: linear-gradient(180deg, #1f1f1f 0%, #141414 100%);
+        }
         .feature-icon {
             width: 70px;
             height: 70px;
-            background: rgba(108, 92, 231, 0.1);
-            border-radius: 20px;
+            background: rgba(229, 9, 20, 0.08);
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
             font-size: 2rem;
-            color: var(--primary);
+            color: var(--netflix-red);
         }
+        .feature-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.3px; }
+        .feature-card p { color: var(--text-muted); font-size: 0.9rem; font-weight: 400; }
 
-        .channels-showcase { padding: 80px 5%; background: var(--dark-light); }
+        /* Channels Showcase */
+        .channels-showcase {
+            padding: 80px 5%;
+            background: #0a0a0a;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+        }
         .channel-logos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
+            gap: 16px;
+            max-width: 1050px;
             margin: 40px auto 0;
         }
         .channel-logo-card {
-            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
-            border-radius: 16px;
-            padding: 20px 10px;
+            background: #111111;
+            border-radius: 6px;
+            padding: 22px 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -273,178 +380,332 @@
             gap: 12px;
             transition: all 0.3s;
             cursor: pointer;
+            border: 1px solid transparent;
         }
         .channel-logo-card:hover {
-            transform: translateY(-5px);
-            background: linear-gradient(135deg, #2a2a4e 0%, #1a1a3e 100%);
+            border-color: #333;
+            background: #181818;
+            transform: scale(1.05);
         }
-        .channel-logo-card i {
-            font-size: 2.5rem;
-        }
+        .channel-logo-card i { font-size: 2.5rem; }
         .channel-logo-card span {
-            font-weight: 600;
-            font-size: 0.7rem;
-            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.65rem;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .pricing { padding: 100px 5%; }
+        /* Pricing */
+        .pricing { padding: 100px 5%; background: #000000; }
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 1000px;
+            gap: 20px;
+            max-width: 1050px;
             margin: 0 auto;
         }
         .plan-card {
-            background: var(--dark-light);
-            border-radius: 20px;
+            background: #0f0f0f;
+            border-radius: 6px;
             padding: 40px 30px;
             text-align: center;
             position: relative;
             transition: all 0.3s;
+            border: 1px solid #1f1f1f;
         }
+        .plan-card:hover { border-color: #333; transform: translateY(-4px); }
         .plan-card.destaque {
-            border: 1px solid var(--primary);
-            transform: scale(1.03);
-            background: #1a1a35;
+            border: 2px solid var(--netflix-red);
+            background: #141414;
+            position: relative;
+            z-index: 1;
         }
         .plan-card.destaque::before {
             content: 'MAIS POPULAR';
             position: absolute;
-            top: -14px;
+            top: -13px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--primary);
-            padding: 6px 25px;
-            border-radius: 50px;
-            font-size: 0.75rem;
+            background: var(--netflix-red);
+            padding: 5px 22px;
+            border-radius: 4px;
+            font-size: 0.7rem;
             font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #fff;
         }
-        .plan-price { font-size: 2.8rem; font-weight: 900; color: var(--secondary); }
-        .plan-price span { font-size: 1rem; color: var(--text-muted); }
-        .plan-features { list-style: none; margin: 25px 0; text-align: left; }
-        .plan-features li { padding: 8px 0; color: var(--text-muted); }
-        .plan-features li i { color: var(--secondary); margin-right: 10px; }
+        .plan-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.5px; }
+        .plan-price { font-size: 3rem; font-weight: 900; color: #ffffff; margin-bottom: 5px; }
+        .plan-price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+        .plan-card.destaque .plan-price { color: var(--netflix-red); }
+        .plan-features { list-style: none; margin: 28px 0; text-align: left; padding: 0; }
+        .plan-features li {
+            padding: 9px 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .plan-features li:last-child { border-bottom: none; }
+        .plan-features li i { color: var(--netflix-red); margin-right: 10px; font-size: 0.85rem; }
         .plan-btn {
             display: block;
-            background: var(--primary);
+            background: var(--netflix-red);
             color: #fff;
-            padding: 15px;
-            border-radius: 50px;
+            padding: 14px;
+            border-radius: 4px;
             text-decoration: none;
             font-weight: 700;
-            transition: all 0.3s;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
-        .plan-btn:hover { background: var(--primary-dark); }
+        .plan-btn:hover { background: var(--netflix-red-hover); transform: scale(1.03); }
+        .plan-card.destaque .plan-btn { font-size: 1rem; }
 
-        .testimonials { padding: 100px 5%; background: var(--dark-light); }
+        /* ============================================ */
+        /* TESTIMONIALS COM IMAGENS - NOVO DESIGN */
+        /* ============================================ */
+        .testimonials {
+            padding: 80px 5%;
+            background: #0a0a0a;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+        }
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         .testimonial-card {
-            background: var(--dark);
+            background: #111111;
             padding: 30px;
-            border-radius: 20px;
+            border-radius: 6px;
+            border: 1px solid #1a1a1a;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
         }
-        .testimonial-card .stars { color: var(--gold); margin-bottom: 15px; }
-        .testimonial-card p { color: var(--text-muted); font-style: italic; margin-bottom: 20px; }
-        .testimonial-author { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
-        .avatar {
-            width: 45px;
-            height: 45px;
+        .testimonial-card:hover {
+            border-color: #333;
+            transform: translateY(-4px);
+        }
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        /* Container da imagem do cliente */
+        .testimonial-avatar {
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            background: var(--primary);
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid #2a2a2a;
+            transition: border-color 0.3s;
+        }
+        .testimonial-card:hover .testimonial-avatar {
+            border-color: var(--netflix-red);
+        }
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        /* Avatar fallback (caso a imagem não carregue) */
+        .testimonial-avatar-fallback {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid #2a2a2a;
+            background: #1a1a1a;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--netflix-red);
+            transition: border-color 0.3s;
+        }
+        .testimonial-card:hover .testimonial-avatar-fallback {
+            border-color: var(--netflix-red);
+        }
+        .testimonial-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .testimonial-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+        }
+        .testimonial-role {
+            font-size: 0.8rem;
+            color: var(--text-dark);
+        }
+        .testimonial-stars {
+            color: var(--gold);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+        .testimonial-text {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+        .testimonial-verified {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #1a1a1a;
+            font-size: 0.75rem;
+            color: #4CAF50;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .testimonial-verified i {
+            font-size: 0.85rem;
         }
 
-        .faq { padding: 100px 5%; }
-        .faq-list { max-width: 700px; margin: 0 auto; }
+        /* FAQ */
+        .faq { padding: 100px 5%; background: #000000; }
+        .faq-list { max-width: 750px; margin: 0 auto; }
         .faq-item {
-            background: var(--dark-light);
-            border-radius: 15px;
-            margin-bottom: 15px;
+            background: #0f0f0f;
+            border-radius: 4px;
+            margin-bottom: 12px;
             overflow: hidden;
+            border: 1px solid #1a1a1a;
+            transition: border-color 0.3s;
         }
+        .faq-item:hover { border-color: #2a2a2a; }
         .faq-question {
-            padding: 20px 25px;
+            padding: 22px 28px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+            transition: color 0.2s;
         }
-        .faq-question:hover { color: var(--primary); }
+        .faq-question:hover { color: var(--netflix-red); }
+        .faq-question i { font-size: 0.8rem; transition: transform 0.3s; color: var(--text-muted); }
         .faq-answer {
-            padding: 0 25px 20px;
+            padding: 0 28px 22px;
             color: var(--text-muted);
             display: none;
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
         .faq-item.active .faq-answer { display: block; }
         .faq-item.active .faq-question i { transform: rotate(180deg); }
+        .faq-item.active { border-color: #333; }
 
-        .cta-final { padding: 100px 5%; text-align: center; background: var(--dark-light); }
-        .cta-final h2 { font-size: 2.5rem; margin-bottom: 15px; }
-        
+        /* CTA Final */
+        .cta-final {
+            padding: 100px 5%;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(229,9,20,0.1) 0%, transparent 70%), #0a0a0a;
+            border-top: 1px solid #1a1a1a;
+        }
+        .cta-final h2 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 900; letter-spacing: -0.5px; }
+        .cta-final p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 35px; }
+        .cta-final .btn-whatsapp { font-size: 1.1rem; padding: 18px 45px; border-radius: 4px; }
+
+        /* Footer */
         footer {
-            background: #08081a;
+            background: #000000;
             padding: 40px 5%;
             text-align: center;
+            border-top: 1px solid #1a1a1a;
         }
-        footer p { color: var(--text-muted); font-size: 0.85rem; }
+        footer p { color: var(--text-dark); font-size: 0.8rem; letter-spacing: 0.5px; }
 
+        /* Float WhatsApp */
         .float-whatsapp {
             position: fixed;
             bottom: 25px;
             right: 25px;
             background: var(--whatsapp);
-            width: 60px;
-            height: 60px;
+            width: 58px;
+            height: 58px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             color: #fff;
             text-decoration: none;
             z-index: 999;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
             animation: float 3s infinite;
+            transition: transform 0.2s;
         }
+        .float-whatsapp:hover { transform: scale(1.1); animation: none; }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
 
+        /* Responsivo */
         @media (max-width: 768px) {
-            .hero { flex-direction: column; text-align: center; }
-            .hero h1 { font-size: 2.3rem; }
-            .tv-container { width: 300px; height: 250px; margin-top: 30px; }
-            .tv-screen { width: 280px; height: 190px; }
-            .plan-card.destaque { transform: scale(1); }
-            .channel-logos-grid { grid-template-columns: repeat(3, 1fr); }
-            .channel-thumb i { font-size: 1.2rem; }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 120px 5% 60px;
+                gap: 40px;
+            }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .hero-buttons { justify-content: center; }
+            .tv-container { width: 280px; height: 230px; margin-top: 10px; }
+            .tv-screen { width: 260px; height: 170px; }
+            .channel-thumb i { font-size: 1.1rem; }
             .channel-thumb span { font-size: 0.5rem; }
+            .section-title h2 { font-size: 2rem; }
+            .trust-strip { gap: 25px; }
+            .trust-item { font-size: 0.8rem; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .plan-card.destaque { transform: none; }
+            .channel-logos-grid { grid-template-columns: repeat(3, 1fr); }
+            .features-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Loader -->
     <div class="loader" id="loader">
-        <div class="loader-circle"></div>
+        <div class="loader-netflix">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
-    <a href="https://wa.me/5584987974972" target="_blank" class="float-whatsapp">
+    <!-- Float WhatsApp -->
+    <a href="https://wa.me/5584987974972" target="_blank" class="float-whatsapp" title="Fale conosco no WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- Header -->
     <header id="header">
         <div class="logo">
-            <i class="fas fa-tv"></i>
             <span>WEB</span><span>FLIX</span>
         </div>
         <a href="https://wa.me/5584987974972" target="_blank" class="header-cta">
@@ -452,11 +713,12 @@
         </a>
     </header>
 
+    <!-- Hero -->
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-badge">🔥 OFERTA ESPECIAL HOJE</div>
-            <h1>O melhor <span class="gradient-text">IPTV</span> do Brasil está aqui</h1>
-            <p>Mais de <strong>10.000 canais</strong> em Full HD, 4K, filmes, séries e futebol ao vivo. Tudo por um preço que cabe no seu bolso.</p>
+            <div class="hero-badge">Oferta Especial Hoje</div>
+            <h1>O melhor <span class="gradient-text">IPTV</span> você encontra aqui</h1>
+            <p>Mais de <strong>10.000 canais</strong> em Full HD e 4K. Filmes, séries e futebol ao vivo por um preço que cabe no seu bolso.</p>
             <div class="hero-buttons">
                 <a href="#planos" class="btn-primary"><i class="fas fa-crown"></i> Ver Planos</a>
                 <a href="https://wa.me/5584987974972" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Teste Grátis</a>
@@ -482,6 +744,7 @@
         </div>
     </section>
 
+    <!-- Trust Strip -->
     <div class="trust-strip">
         <div class="trust-item"><i class="fas fa-shield-alt"></i> Garantia de 24h</div>
         <div class="trust-item"><i class="fas fa-headset"></i> Suporte 24h</div>
@@ -489,25 +752,51 @@
         <div class="trust-item"><i class="fas fa-lock"></i> Pagamento Seguro</div>
     </div>
 
+    <!-- Features -->
     <section class="features">
         <div class="section-title">
             <h2>Por que escolher a WEBFLIX?</h2>
-            <p>Oferecemos a melhor experiência de IPTV com qualidade e estabilidade.</p>
+            <p>Qualidade cinematográfica, estabilidade e o melhor suporte.</p>
         </div>
         <div class="features-grid">
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-satellite-dish"></i></div><h3>+10.000 Canais</h3><p>Canais nacionais e internacionais, incluindo todos os esportes.</p></div>
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-film"></i></div><h3>Filmes e Séries</h3><p>Catálogo completo com lançamentos atualizados semanalmente.</p></div>
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-futbol"></i></div><h3>Futebol Ao Vivo</h3><p>Todos os campeonatos: Brasileirão, Premier League, Champions e mais.</p></div>
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-4k"></i></div><h3>Qualidade 4K</h3><p>Transmissão em Full HD, 4K e HDR com estabilidade total.</p></div>
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-mobile-alt"></i></div><h3>Multi-dispositivos</h3><p>Assista na TV, celular, tablet, PC ou Fire Stick.</p></div>
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-sync-alt"></i></div><h3>Anti-Travamento</h3><p>Servidores premium com tecnologia anti-congelamento.</p></div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-satellite-dish"></i></div>
+                <h3>+10.000 Canais</h3>
+                <p>Canais nacionais e internacionais com todos os esportes ao vivo.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-film"></i></div>
+                <h3>Filmes e Séries</h3>
+                <p>Catálogo completo com lançamentos atualizados semanalmente.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-futbol"></i></div>
+                <h3>Futebol Ao Vivo</h3>
+                <p>Brasileirão, Premier League, Champions League e muito mais.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-4k"></i></div>
+                <h3>Qualidade 4K HDR</h3>
+                <p>Transmissão em Full HD e 4K com total estabilidade.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Multi-dispositivos</h3>
+                <p>Assista na TV, celular, tablet, PC ou Fire Stick.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3>Anti-Travamento</h3>
+                <p>Servidores premium com tecnologia anti-congelamento.</p>
+            </div>
         </div>
     </section>
 
+    <!-- Channels Showcase -->
     <section class="channels-showcase">
         <div class="section-title">
             <h2>Canais Disponíveis</h2>
-            <p>Confira alguns dos canais que você terá acesso</p>
+            <p>Uma prévia do que você terá acesso</p>
         </div>
         <div class="channel-logos-grid">
             <div class="channel-logo-card"><i class="fas fa-futbol"></i><span>SPORTV</span></div>
@@ -525,10 +814,11 @@
         </div>
     </section>
 
+    <!-- Planos -->
     <section class="pricing" id="planos">
         <div class="section-title">
             <h2>Planos e Preços</h2>
-            <p>Escolha o plano ideal para você. Todos com garantia de 1 dias.</p>
+            <p>Escolha o plano ideal. Todos com garantia de 1 dia.</p>
         </div>
         <div class="pricing-grid">
             <div class="plan-card">
@@ -566,57 +856,162 @@
         </div>
     </section>
 
+    <!-- ============================================ -->
+    <!-- DEPOIMENTOS COM IMAGENS -->
+    <!-- ============================================ -->
     <section class="testimonials">
         <div class="section-title">
             <h2>O que nossos clientes dizem</h2>
             <p>Mais de 15.000 clientes satisfeitos em todo o Brasil.</p>
         </div>
         <div class="testimonials-grid">
+            
+            <!-- Depoimento 1 - Carlos -->
             <div class="testimonial-card">
-                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>"Melhor serviço de IPTV que já testei. Canais em Full HD sem travamentos e o suporte responde na hora pelo WhatsApp. Recomendo demais!"</p>
-                <div class="testimonial-author"><div class="avatar">CR</div><div><strong>Carlos Ribeiro</strong><span>Cliente há 6 meses</span></div></div>
+                <div class="testimonial-header">
+                    <!-- 
+                        SUBSTITUA O SRC PELA IMAGEM REAL DO CLIENTE
+                        Ex: src="img/clientes/carlos.jpg"
+                        Ou use uma URL externa:
+                        src="https://i.pravatar.cc/150?img=68"
+                    -->
+                    <div class="testimonial-avatar">
+                        <img 
+                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" 
+                            alt="Foto do cliente Carlos Ribeiro"
+                            loading="lazy"
+                            onerror="this.style.display='none'; this.parentElement.classList.add('testimonial-avatar-fallback'); this.parentElement.innerHTML='CR';"
+                        >
+                    </div>
+                    <div class="testimonial-info">
+                        <span class="testimonial-name">Carlos Ribeiro</span>
+                        <span class="testimonial-role">Cliente há 6 meses</span>
+                    </div>
+                </div>
+                <div class="testimonial-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Melhor IPTV que já testei. Canais em Full HD sem travamentos e o suporte responde na hora pelo WhatsApp. Recomendo demais!"
+                </p>
+                <div class="testimonial-verified">
+                    <i class="fas fa-check-circle"></i> Compra verificada
+                </div>
             </div>
+
+            <!-- Depoimento 2 - Fernanda -->
             <div class="testimonial-card">
-                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>"Assisto todos os jogos do meu time sem preocupação. A qualidade 4K é surreal e o preço cabe no bolso. Teste grátis funciona mesmo!"</p>
-                <div class="testimonial-author"><div class="avatar">FM</div><div><strong>Fernanda Mendes</strong><span>Cliente há 3 meses</span></div></div>
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">
+                        <img 
+                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face" 
+                            alt="Foto da cliente Fernanda Mendes"
+                            loading="lazy"
+                            onerror="this.style.display='none'; this.parentElement.classList.add('testimonial-avatar-fallback'); this.parentElement.innerHTML='FM';"
+                        >
+                    </div>
+                    <div class="testimonial-info">
+                        <span class="testimonial-name">Fernanda Mendes</span>
+                        <span class="testimonial-role">Cliente há 3 meses</span>
+                    </div>
+                </div>
+                <div class="testimonial-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Assisto todos os jogos do meu time sem preocupação. A qualidade 4K é surreal e o preço cabe no bolso. Teste grátis funciona mesmo!"
+                </p>
+                <div class="testimonial-verified">
+                    <i class="fas fa-check-circle"></i> Compra verificada
+                </div>
             </div>
+
+            <!-- Depoimento 3 - Ricardo -->
             <div class="testimonial-card">
-                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>"Funciona perfeitamente na minha Smart TV, no celular e no computador. O catálogo de filmes é enorme, sempre atualizado. Nota 10!"</p>
-                <div class="testimonial-author"><div class="avatar">RA</div><div><strong>Ricardo Almeida</strong><span>Cliente há 1 ano</span></div></div>
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">
+                        <img 
+                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face" 
+                            alt="Foto do cliente Ricardo Almeida"
+                            loading="lazy"
+                            onerror="this.style.display='none'; this.parentElement.classList.add('testimonial-avatar-fallback'); this.parentElement.innerHTML='RA';"
+                        >
+                    </div>
+                    <div class="testimonial-info">
+                        <span class="testimonial-name">Ricardo Almeida</span>
+                        <span class="testimonial-role">Cliente há 1 ano</span>
+                    </div>
+                </div>
+                <div class="testimonial-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Funciona perfeitamente na minha Smart TV, no celular e no computador. O catálogo de filmes é enorme, sempre atualizado. Nota 10!"
+                </p>
+                <div class="testimonial-verified">
+                    <i class="fas fa-check-circle"></i> Compra verificada
+                </div>
             </div>
+
         </div>
     </section>
 
+    <!-- FAQ -->
     <section class="faq">
         <div class="section-title">
             <h2>Perguntas Frequentes</h2>
-            <p>Tire todas as suas dúvidas sobre o serviço.</p>
+            <p>Tire suas dúvidas sobre o serviço.</p>
         </div>
         <div class="faq-list">
-            <div class="faq-item"><div class="faq-question">Como funciona o teste grátis? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Você solicita o teste pelo WhatsApp, enviamos seu login e senha em até 5 minutos. O teste dura 24h com acesso total a todos os canais e recursos.</div></div>
-            <div class="faq-item"><div class="faq-question">Quais dispositivos são compatíveis? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Smart TVs (LG, Samsung, TCL), Android TV, Fire Stick, celulares (Android/iOS), PC, Mac, Chromecast e TV Box.</div></div>
-            <div class="faq-item"><div class="faq-question">Tem garantia? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Sim, todos os planos têm garantia incondicional de 1 dias. Se não gostar, devolvemos 100% do seu dinheiro.</div></div>
-            <div class="faq-item"><div class="faq-question">Como faço para assinar? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Basta clicar em qualquer botão "Assinar Agora" ou "Testar Grátis", você será redirecionado ao WhatsApp para finalizar o pedido.</div></div>
+            <div class="faq-item">
+                <div class="faq-question">Como funciona o teste grátis? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Você solicita o teste pelo WhatsApp, enviamos seu login e senha em até 5 minutos. O teste dura 24h com acesso total a todos os canais e recursos.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Quais dispositivos são compatíveis? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Smart TVs (LG, Samsung, TCL), Android TV, Fire Stick, celulares (Android/iOS), PC, Mac, Chromecast e TV Box.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Tem garantia? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Sim, todos os planos têm garantia incondicional de 1 dia. Se não gostar, devolvemos 100% do seu dinheiro.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Como faço para assinar? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Clique em qualquer botão "Assinar Agora" ou "Testar Grátis" e você será redirecionado ao WhatsApp para finalizar o pedido em poucos minutos.</div>
+            </div>
         </div>
     </section>
 
+    <!-- CTA Final -->
     <section class="cta-final">
         <h2>Pronto para transformar sua TV?</h2>
         <p>Mais de 10.000 canais, filmes, séries e esportes ao vivo. Teste grátis hoje mesmo!</p>
-        <a href="https://wa.me/5584987974972" target="_blank" class="btn-whatsapp" style="padding: 18px 45px; font-size: 1.2rem;"><i class="fab fa-whatsapp"></i> GANHE SEU TESTE GRÁTIS</a>
+        <a href="https://wa.me/5584987974972" target="_blank" class="btn-whatsapp">
+            <i class="fab fa-whatsapp"></i> GANHE SEU TESTE GRÁTIS
+        </a>
     </section>
 
+    <!-- Footer -->
     <footer>
-        <p>WEBFLIX © 2025 - Todos os direitos reservados.</p>
+        <p>WEBFLIX © 2025 — Todos os direitos reservados.</p>
         <p style="margin-top: 10px;">Atendimento 24h pelo WhatsApp: (84) 98797-4972</p>
     </footer>
 
     <script>
         window.addEventListener('load', function() {
-            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800);
+            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1000);
         });
 
         window.addEventListener('scroll', function() {
@@ -626,7 +1021,12 @@
         });
 
         document.querySelectorAll('.faq-item').forEach(item => {
-            item.querySelector('.faq-question').addEventListener('click', () => item.classList.toggle('active'));
+            item.querySelector('.faq-question').addEventListener('click', () => {
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if (otherItem !== item) otherItem.classList.remove('active');
+                });
+                item.classList.toggle('active');
+            });
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -635,7 +1035,7 @@
                 if (href === "#" || href === "#planos") {
                     e.preventDefault();
                     const target = document.getElementById(href.substring(1));
-                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                    if (target) target.scrollIntoView({ behaviour: 'smooth' });
                 }
             });
         });
