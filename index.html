@@ -167,16 +167,14 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            flex-direction: column;
-            gap: 5px;
+            padding: 5px;
         }
-        .channel-thumb i {
-            font-size: 1.5rem;
-            color: var(--primary);
-        }
-        .channel-thumb span {
-            font-size: 0.6rem;
-            font-weight: 600;
+        .channel-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-width: 70px;
+            filter: brightness(0.9);
         }
         .live-dot {
             position: absolute;
@@ -250,7 +248,7 @@
         .channel-logo-card {
             background: #111;
             border-radius: 16px;
-            padding: 20px 15px;
+            padding: 20px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -260,8 +258,16 @@
             cursor: pointer;
         }
         .channel-logo-card:hover { transform: translateY(-5px); background: #1a1a2e; }
-        .channel-logo-card i { font-size: 2rem; color: var(--primary); }
-        .channel-logo-card span { font-weight: 600; font-size: 0.75rem; color: var(--text-muted); }
+        .channel-logo-card img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+        .channel-logo-card span {
+            font-weight: 600;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
 
         .pricing { padding: 100px 5%; }
         .pricing-grid {
@@ -403,6 +409,7 @@
             .tv-screen { width: 280px; height: 190px; }
             .plan-card.destaque { transform: scale(1); }
             .channel-logos-grid { grid-template-columns: repeat(3, 1fr); }
+            .channel-thumb img { max-width: 45px; }
         }
     </style>
 </head>
@@ -440,14 +447,14 @@
             <div class="tv-container">
                 <div class="tv-screen">
                     <div class="channel-grid">
-                        <div class="channel-thumb"><i class="fas fa-futbol"></i><span>SPORT</span><div class="live-dot"></div></div>
-                        <div class="channel-thumb"><i class="fas fa-trophy"></i><span>ESPN</span></div>
-                        <div class="channel-thumb"><i class="fas fa-crown"></i><span>PREMIERE</span><div class="live-dot"></div></div>
-                        <div class="channel-thumb"><i class="fas fa-star"></i><span>PARAMOUNT</span></div>
-                        <div class="channel-thumb"><i class="fas fa-film"></i><span>HBO</span></div>
-                        <div class="channel-thumb"><i class="fas fa-video"></i><span>TELECINE</span></div>
-                        <div class="channel-thumb"><i class="fas fa-play-circle"></i><span>NETFLIX</span></div>
-                        <div class="channel-thumb"><i class="fas fa-magic"></i><span>DISNEY</span></div>
+                        <div class="channel-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/ESPN_logo.svg/60px-ESPN_logo.svg.png" alt="ESPN"><div class="live-dot"></div></div>
+                        <div class="channel-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/N_logo_%28Netflix%29.svg/60px-N_logo_%28Netflix%29.svg.png" alt="Netflix"></div>
+                        <div class="channel-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/HBO_logo.svg/60px-HBO_logo.svg.png" alt="HBO"><div class="live-dot"></div></div>
+                        <div class="channel-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Disney%2B_logo.svg/60px-Disney%2B_logo.svg.png" alt="Disney+"></div>
+                        <div class="channel-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Prime_Video_logo.svg/60px-Prime_Video_logo.svg.png" alt="Prime Video"></div>
+                        <div class="channel-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Star%2B_logo.svg/60px-Star%2B_logo.svg.png" alt="Star+"></div>
+                        <div class="channel-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Paramount%2B_logo.svg/60px-Paramount%2B_logo.svg.png" alt="Paramount+"></div>
+                        <div class="channel-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Globoplay_logo.svg/60px-Globoplay_logo.svg.png" alt="Globoplay"></div>
                     </div>
                 </div>
                 <div class="tv-stand"></div>
@@ -481,21 +488,21 @@
     <section class="channels-showcase">
         <div class="section-title">
             <h2>Canais Disponíveis</h2>
-            <p>Confira alguns dos canais que você terá acesso.</p>
+            <p>Confira alguns dos canais que você terá acesso</p>
         </div>
         <div class="channel-logos-grid">
-            <div class="channel-logo-card"><i class="fas fa-futbol"></i><span>SPORT TV</span></div>
-            <div class="channel-logo-card"><i class="fas fa-trophy"></i><span>ESPN</span></div>
-            <div class="channel-logo-card"><i class="fas fa-crown"></i><span>PREMIERE</span></div>
-            <div class="channel-logo-card"><i class="fas fa-star"></i><span>PARAMOUNT</span></div>
-            <div class="channel-logo-card"><i class="fas fa-film"></i><span>HBO</span></div>
-            <div class="channel-logo-card"><i class="fas fa-video"></i><span>TELECINE</span></div>
-            <div class="channel-logo-card"><i class="fas fa-play-circle"></i><span>NETFLIX</span></div>
-            <div class="channel-logo-card"><i class="fas fa-magic"></i><span>DISNEY+</span></div>
-            <div class="channel-logo-card"><i class="fas fa-tv"></i><span>STAR+</span></div>
-            <div class="channel-logo-card"><i class="fas fa-shopping-cart"></i><span>PRIME VIDEO</span></div>
-            <div class="channel-logo-card"><i class="fas fa-futbol"></i><span>BAND SPORTS</span></div>
-            <div class="channel-logo-card"><i class="fas fa-bolt"></i><span>TNT SPORTS</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/ESPN_logo.svg/80px-ESPN_logo.svg.png" alt="ESPN"><span>ESPN</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/N_logo_%28Netflix%29.svg/80px-N_logo_%28Netflix%29.svg.png" alt="Netflix"><span>NETFLIX</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/HBO_logo.svg/80px-HBO_logo.svg.png" alt="HBO"><span>HBO</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Disney%2B_logo.svg/80px-Disney%2B_logo.svg.png" alt="Disney+"><span>DISNEY+</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Prime_Video_logo.svg/80px-Prime_Video_logo.svg.png" alt="Prime Video"><span>PRIME VIDEO</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Star%2B_logo.svg/80px-Star%2B_logo.svg.png" alt="Star+"><span>STAR+</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Paramount%2B_logo.svg/80px-Paramount%2B_logo.svg.png" alt="Paramount+"><span>PARAMOUNT+</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Globoplay_logo.svg/80px-Globoplay_logo.svg.png" alt="Globoplay"><span>GLOBOPLAY</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Telecine_logo.svg/80px-Telecine_logo.svg.png" alt="Telecine"><span>TELECINE</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/SporTV_logo.svg/80px-SporTV_logo.svg.png" alt="SporTV"><span>SPORTV</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Band_logo.svg/80px-Band_logo.svg.png" alt="Band"><span>BAND</span></div>
+            <div class="channel-logo-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/TNT_Sports_logo.svg/80px-TNT_Sports_logo.svg.png" alt="TNT Sports"><span>TNT SPORTS</span></div>
         </div>
     </section>
 
