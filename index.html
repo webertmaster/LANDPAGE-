@@ -32,7 +32,6 @@
             overflow-x: hidden;
         }
 
-        /* Loader */
         .loader {
             position: fixed;
             top: 0;
@@ -60,7 +59,6 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -82,197 +80,78 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
         }
-        .logo span:first-child {
-            color: #fff;
-        }
-        .logo span:last-child {
-            color: var(--secondary);
-        }
-        .logo i {
-            color: var(--primary);
-            margin-right: 8px;
-        }
+        .logo span:first-child { color: #fff; }
+        .logo span:last-child { color: var(--secondary); }
+        .logo i { color: var(--primary); margin-right: 8px; }
 
         .header-cta {
             background: var(--primary);
             color: #fff;
-            border: none;
             padding: 12px 28px;
             border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            font-weight: 700;
+            transition: all 0.3s;
         }
         .header-cta:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
         }
 
-        /* Hero */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 120px 5% 80px;
-            position: relative;
-            overflow: hidden;
             gap: 40px;
         }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 50% 50%, rgba(108,92,231,0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 20% 80%, rgba(0,206,201,0.06) 0%, transparent 50%);
-            animation: bgFloat 20s infinite alternate;
-        }
-        @keyframes bgFloat {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(-5%, -5%) rotate(5deg); }
-        }
-
-        .hero-content {
-            max-width: 650px;
-            z-index: 1;
-        }
-        .hero-visual {
-            z-index: 1;
-            position: relative;
-        }
+        .hero-content { max-width: 650px; z-index: 1; }
         .hero-badge {
-            display: inline-block;
             background: rgba(108, 92, 231, 0.15);
             color: var(--primary);
             padding: 8px 20px;
             border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
+            display: inline-block;
             margin-bottom: 25px;
-            border: 1px solid rgba(108, 92, 231, 0.3);
-            animation: pulse 2s infinite;
         }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.4); }
-            50% { box-shadow: 0 0 0 20px rgba(108, 92, 231, 0); }
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
-        }
-        .hero h1 .gradient-text {
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; }
+        .gradient-text {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-        .hero p {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            margin-bottom: 35px;
-            max-width: 500px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        .btn-primary {
-            background: var(--primary);
-            color: #fff;
+        .hero p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 35px; }
+        .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+        
+        .btn-primary, .btn-whatsapp {
             padding: 16px 35px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.3s;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(108, 92, 231, 0.3);
-        }
-        .btn-whatsapp {
-            background: var(--whatsapp);
-            color: #fff;
-            padding: 16px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
             transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
         }
-        .btn-whatsapp:hover {
-            background: #1ebe57;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.3);
-        }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-3px); }
+        .btn-whatsapp { background: var(--whatsapp); color: #fff; }
+        .btn-whatsapp:hover { background: #1ebe57; transform: translateY(-3px); }
 
-        /* TV Animation com logos reais */
-        .tv-container {
-            position: relative;
-            width: 420px;
-            height: 340px;
-        }
+        .tv-container { position: relative; width: 420px; height: 340px; }
         .tv-screen {
             width: 400px;
             height: 260px;
             background: #0a0a1a;
             border-radius: 15px;
             border: 4px solid #2a2a4a;
-            position: relative;
             overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 100px rgba(108,92,231,0.15);
-        }
-        .tv-screen::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
-            animation: shine 3s infinite;
-            z-index: 2;
-            pointer-events: none;
-        }
-        @keyframes shine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        .tv-stand {
-            width: 120px;
-            height: 15px;
-            background: #2a2a4a;
-            margin: 0 auto;
-            border-radius: 0 0 10px 10px;
-        }
-        .tv-base {
-            width: 200px;
-            height: 10px;
-            background: #2a2a4a;
-            margin: 5px auto 0;
-            border-radius: 5px;
+            position: relative;
         }
         .channel-grid {
             display: grid;
@@ -281,85 +160,51 @@
             padding: 2px;
             position: absolute;
             inset: 0;
-            z-index: 1;
         }
         .channel-thumb {
-            position: relative;
-            overflow: hidden;
+            background: #111;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #111;
+            position: relative;
         }
         .channel-thumb img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             padding: 8px;
-            filter: brightness(0.9);
-            transition: all 0.5s;
         }
-        .channel-thumb:hover img {
-            filter: brightness(1.2);
-            transform: scale(1.1);
-        }
-        .channel-thumb .live-dot {
+        .live-dot {
             position: absolute;
             top: 5px;
             right: 5px;
             width: 8px;
             height: 8px;
-            background: #ff0000;
+            background: red;
             border-radius: 50%;
-            animation: livePulse 1.5s infinite;
+            animation: pulse 1.5s infinite;
         }
-        @keyframes livePulse {
-            0%, 100% { opacity: 1; box-shadow: 0 0 5px #ff0000; }
-            50% { opacity: 0.3; box-shadow: 0 0 15px #ff0000; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
+        .tv-stand { width: 120px; height: 15px; background: #2a2a4a; margin: 0 auto; border-radius: 0 0 10px 10px; }
+        .tv-base { width: 200px; height: 10px; background: #2a2a4a; margin: 5px auto 0; border-radius: 5px; }
 
-        /* Trust Strip */
         .trust-strip {
             background: var(--dark-light);
             padding: 20px 5%;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
             display: flex;
             justify-content: center;
             gap: 50px;
             flex-wrap: wrap;
         }
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-muted);
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        .trust-item i {
-            font-size: 1.4rem;
-            color: var(--secondary);
-        }
+        .trust-item { display: flex; align-items: center; gap: 12px; color: var(--text-muted); }
+        .trust-item i { font-size: 1.4rem; color: var(--secondary); }
 
-        /* Features */
-        .features {
-            padding: 100px 5%;
-        }
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        .section-title h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-        .section-title p {
-            color: var(--text-muted);
-            max-width: 500px;
-            margin: 0 auto;
-        }
+        .features { padding: 100px 5%; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.5rem; margin-bottom: 15px; }
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -372,14 +217,9 @@
             padding: 35px 25px;
             border-radius: 20px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.03);
             transition: all 0.3s;
         }
-        .feature-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(108,92,231,0.3);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
+        .feature-card:hover { transform: translateY(-8px); }
         .feature-icon {
             width: 70px;
             height: 70px;
@@ -392,20 +232,8 @@
             font-size: 2rem;
             color: var(--primary);
         }
-        .feature-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
 
-        /* Channels Showcase com logos reais */
-        .channels-showcase {
-            padding: 80px 5%;
-            background: var(--dark-light);
-        }
+        .channels-showcase { padding: 80px 5%; background: var(--dark-light); }
         .channel-logos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -417,35 +245,16 @@
             background: #111;
             border-radius: 16px;
             padding: 20px 15px;
+            aspect-ratio: 16/10;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.05);
-            aspect-ratio: 16/10;
-            cursor: pointer;
         }
-        .channel-logo-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(108,92,231,0.4);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-        }
-        .channel-logo-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: brightness(0.85);
-            transition: all 0.3s;
-        }
-        .channel-logo-card:hover img {
-            filter: brightness(1.1);
-            transform: scale(1.08);
-        }
+        .channel-logo-card:hover { transform: translateY(-5px); }
+        .channel-logo-card img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* Pricing */
-        .pricing {
-            padding: 100px 5%;
-        }
+        .pricing { padding: 100px 5%; }
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -458,14 +267,12 @@
             border-radius: 20px;
             padding: 40px 30px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
             position: relative;
             transition: all 0.3s;
         }
         .plan-card.destaque {
-            border-color: var(--primary);
+            border: 1px solid var(--primary);
             transform: scale(1.03);
-            box-shadow: 0 0 60px rgba(108,92,231,0.15);
             background: #1a1a35;
         }
         .plan-card.destaque::before {
@@ -475,47 +282,15 @@
             left: 50%;
             transform: translateX(-50%);
             background: var(--primary);
-            color: #fff;
             padding: 6px 25px;
             border-radius: 50px;
             font-size: 0.75rem;
             font-weight: 700;
-            letter-spacing: 1px;
         }
-        .plan-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-        }
-        .plan-price {
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: var(--secondary);
-            margin-bottom: 5px;
-        }
-        .plan-price span {
-            font-size: 1rem;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-        .plan-period {
-            color: var(--text-muted);
-            margin-bottom: 25px;
-            font-size: 0.9rem;
-        }
-        .plan-features {
-            list-style: none;
-            margin-bottom: 30px;
-            text-align: left;
-        }
-        .plan-features li {
-            padding: 8px 0;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        .plan-features li i {
-            color: var(--secondary);
-            margin-right: 10px;
-        }
+        .plan-price { font-size: 2.8rem; font-weight: 900; color: var(--secondary); }
+        .plan-features { list-style: none; margin: 25px 0; text-align: left; }
+        .plan-features li { padding: 8px 0; color: var(--text-muted); }
+        .plan-features li i { color: var(--secondary); margin-right: 10px; }
         .plan-btn {
             display: block;
             background: var(--primary);
@@ -526,16 +301,9 @@
             font-weight: 700;
             transition: all 0.3s;
         }
-        .plan-btn:hover {
-            background: var(--primary-dark);
-            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
-        }
+        .plan-btn:hover { background: var(--primary-dark); }
 
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 5%;
-            background: var(--dark-light);
-        }
+        .testimonials { padding: 100px 5%; background: var(--dark-light); }
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -547,25 +315,10 @@
             background: var(--dark);
             padding: 30px;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.03);
         }
-        .testimonial-card .stars {
-            color: var(--gold);
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-        .testimonial-card p {
-            color: var(--text-muted);
-            font-style: italic;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .testimonial-author .avatar {
+        .testimonial-card .stars { color: var(--gold); margin-bottom: 15px; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+        .avatar {
             width: 45px;
             height: 45px;
             border-radius: 50%;
@@ -574,30 +327,14 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            color: #fff;
-        }
-        .testimonial-author strong {
-            display: block;
-            font-size: 0.9rem;
-        }
-        .testimonial-author span {
-            color: var(--text-muted);
-            font-size: 0.8rem;
         }
 
-        /* FAQ */
-        .faq {
-            padding: 100px 5%;
-        }
-        .faq-list {
-            max-width: 700px;
-            margin: 0 auto;
-        }
+        .faq { padding: 100px 5%; }
+        .faq-list { max-width: 700px; margin: 0 auto; }
         .faq-item {
             background: var(--dark-light);
             border-radius: 15px;
             margin-bottom: 15px;
-            border: 1px solid rgba(255,255,255,0.03);
             overflow: hidden;
         }
         .faq-question {
@@ -605,68 +342,28 @@
             cursor: pointer;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             font-weight: 600;
-            transition: all 0.3s;
-        }
-        .faq-question:hover {
-            color: var(--primary);
         }
         .faq-answer {
             padding: 0 25px 20px;
             color: var(--text-muted);
-            font-size: 0.9rem;
             display: none;
         }
-        .faq-item.active .faq-answer {
-            display: block;
-        }
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-            color: var(--primary);
-        }
+        .faq-item.active .faq-answer { display: block; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
 
-        /* CTA Final */
-        .cta-final {
-            padding: 100px 5%;
-            text-align: center;
-            background: var(--dark-light);
-        }
-        .cta-final h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-        .cta-final p {
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Footer */
+        .cta-final { padding: 100px 5%; text-align: center; background: var(--dark-light); }
         footer {
             background: #08081a;
             padding: 40px 5%;
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.03);
         }
-        footer p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
+        footer p { color: var(--text-muted); font-size: 0.85rem; }
 
-        /* Float WhatsApp Button */
         .float-whatsapp {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            z-index: 999;
             background: var(--whatsapp);
             width: 60px;
             height: 60px;
@@ -677,139 +374,66 @@
             font-size: 1.8rem;
             color: #fff;
             text-decoration: none;
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-            animation: float 3s ease-in-out infinite;
-            transition: all 0.3s;
-        }
-        .float-whatsapp:hover {
-            transform: scale(1.15);
-            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5);
+            z-index: 999;
+            animation: float 3s infinite;
         }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
 
-        /* Responsivo */
         @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding-top: 100px;
-            }
-            .hero h1 {
-                font-size: 2.3rem;
-            }
-            .hero p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .hero-buttons {
-                justify-content: center;
-            }
-            .tv-container {
-                width: 300px;
-                height: 250px;
-                margin-top: 30px;
-            }
-            .tv-screen {
-                width: 280px;
-                height: 190px;
-            }
-            .trust-strip {
-                gap: 25px;
-            }
-            header .header-cta {
-                padding: 10px 20px;
-                font-size: 0.85rem;
-            }
-            .logo {
-                font-size: 1.3rem;
-            }
-            .plan-card.destaque {
-                transform: scale(1);
-            }
-            .channel-logos-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-            .channel-logo-card {
-                padding: 12px 8px;
-                border-radius: 12px;
-            }
+            .hero { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 2.3rem; }
+            .tv-container { width: 300px; height: 250px; margin-top: 30px; }
+            .tv-screen { width: 280px; height: 190px; }
+            .plan-card.destaque { transform: scale(1); }
+            .channel-logos-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Loader -->
     <div class="loader" id="loader">
         <div class="loader-circle"></div>
     </div>
 
-    <!-- Float WhatsApp -->
-    <a href="https://wa.me/SEUNUMERO" target="_blank" class="float-whatsapp" title="Fale conosco no WhatsApp">
+    <a href="https://wa.me/5511999999999" target="_blank" class="float-whatsapp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Header -->
     <header id="header">
         <div class="logo">
             <i class="fas fa-tv"></i>
             <span>TV</span><span>Prime</span>
         </div>
-        <a href="https://wa.me/SEUNUMERO" target="_blank" class="header-cta">
+        <a href="https://wa.me/5511999999999" target="_blank" class="header-cta">
             <i class="fab fa-whatsapp"></i> Testar Grátis
         </a>
     </header>
 
-    <!-- Hero -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-badge">🔥 OFERTA ESPECIAL HOJE</div>
             <h1>O melhor <span class="gradient-text">IPTV</span> do Brasil está aqui</h1>
-            <p>Mais de <strong>10.000 canais</strong> em Full HD, 4K, filmes, séries e futebol ao vivo. Tudo por um preço que cabe no seu bolso.</p>
+            <p>Mais de <strong>10.000 canais</strong> em Full HD, 4K, filmes, séries e futebol ao vivo.</p>
             <div class="hero-buttons">
-                <a href="#planos" class="btn-primary">
-                    <i class="fas fa-crown"></i> Ver Planos
-                </a>
-                <a href="https://wa.me/SEUNUMERO" target="_blank" class="btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> Teste Grátis
-                </a>
+                <a href="#planos" class="btn-primary"><i class="fas fa-crown"></i> Ver Planos</a>
+                <a href="https://wa.me/5511999999999" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Teste Grátis</a>
             </div>
         </div>
         <div class="hero-visual">
             <div class="tv-container">
                 <div class="tv-screen">
                     <div class="channel-grid">
-                        <!-- Primeira linha - Esportes -->
-                        <div class="channel-thumb">
-                            <img src="https://logodownload.org/wp-content/uploads/2016/08/sport-tv-logo-1.png" alt="Sport TV" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>SPORT TV</span>'">
-                            <div class="live-dot"></div>
-                        </div>
-                        <div class="channel-thumb">
-                            <img src="https://logodownload.org/wp-content/uploads/2014/04/espn-logo-0.png" alt="ESPN" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>ESPN</span>'">
-                        </div>
-                        <div class="channel-thumb">
-                            <img src="https://logodownload.org/wp-content/uploads/2019/07/premiere-logo-1.png" alt="Premiere" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>PREMIERE</span>'">
-                            <div class="live-dot"></div>
-                        </div>
-                        <div class="channel-thumb">
-                            <img src="https://logodownload.org/wp-content/uploads/2015/05/paramount-logo-1.png" alt="Paramount" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>PARAMOUNT</span>'">
-                        </div>
-                        <!-- Segunda linha - Filmes e Séries -->
-                        <div class="channel-thumb">
-                            <img src="https://logodownload.org/wp-content/uploads/2014/12/hbo-logo-1.png" alt="HBO" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>HBO</span>'">
-                        </div>
-                        <div class="channel-thumb">
-                            <img src="https://logodownload.org/wp-content/uploads/2017/05/telecine-logo-2.png" alt="Telecine" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>TELECINE</span>'">
-                        </div>
-                        <div class="channel-thumb">
-                            <img src="https://logodownload.org/wp-content/uploads/2017/10/netflix-logo-1.png" alt="Netflix" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>NETFLIX</span>'">
-                        </div>
-                        <div class="channel-thumb">
-                            <img src="https://logodownload.org/wp-content/uploads/2018/04/disney-logo-2.png" alt="Disney" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>DISNEY</span>'">
-                        </div>
+                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2016/08/sport-tv-logo-1.png" alt="Sport TV"><div class="live-dot"></div></div>
+                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2014/04/espn-logo-0.png" alt="ESPN"></div>
+                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2019/07/premiere-logo-1.png" alt="Premiere"><div class="live-dot"></div></div>
+                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2015/05/paramount-logo-1.png" alt="Paramount"></div>
+                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2014/12/hbo-logo-1.png" alt="HBO"></div>
+                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2017/05/telecine-logo-2.png" alt="Telecine"></div>
+                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2017/10/netflix-logo-1.png" alt="Netflix"></div>
+                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2018/04/disney-logo-2.png" alt="Disney"></div>
                     </div>
                 </div>
                 <div class="tv-stand"></div>
@@ -818,7 +442,6 @@
         </div>
     </section>
 
-    <!-- Trust Strip -->
     <div class="trust-strip">
         <div class="trust-item"><i class="fas fa-shield-alt"></i> Garantia de 7 dias</div>
         <div class="trust-item"><i class="fas fa-headset"></i> Suporte 24h</div>
@@ -826,98 +449,156 @@
         <div class="trust-item"><i class="fas fa-lock"></i> Pagamento Seguro</div>
     </div>
 
-    <!-- Features -->
-    <section class="features" id="vantagens">
+    <section class="features">
         <div class="section-title">
             <h2>Por que escolher a TVPrime?</h2>
-            <p>Oferecemos a melhor experiência de IPTV com qualidade e estabilidade.</p>
+            <p>A melhor experiência em IPTV</p>
         </div>
         <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-satellite-dish"></i></div>
-                <h3>+10.000 Canais</h3>
-                <p>Canais nacionais e internacionais, incluindo todos os esportes.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-film"></i></div>
-                <h3>Filmes e Séries</h3>
-                <p>Catálogo completo com lançamentos atualizados semanalmente.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-futbol"></i></div>
-                <h3>Futebol Ao Vivo</h3>
-                <p>Todos os campeonatos: Brasileirão, Premier League, Champions e mais.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-4k"></i></div>
-                <h3>Qualidade 4K</h3>
-                <p>Transmissão em Full HD, 4K e HDR com estabilidade total.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
-                <h3>Multi-dispositivos</h3>
-                <p>Assista na TV, celular, tablet, PC ou Fire Stick.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
-                <h3>Anti-Travamento</h3>
-                <p>Servidores premium com tecnologia anti-congelamento.</p>
-            </div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-satellite-dish"></i></div><h3>+10.000 Canais</h3><p>Canais nacionais e internacionais</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-film"></i></div><h3>Filmes e Séries</h3><p>Lançamentos atualizados</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-futbol"></i></div><h3>Futebol Ao Vivo</h3><p>Todos os campeonatos</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-4k"></i></div><h3>Qualidade 4K</h3><p>Full HD, 4K e HDR</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-mobile-alt"></i></div><h3>Multi-dispositivos</h3><p>TV, celular, tablet, PC</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-sync-alt"></i></div><h3>Anti-Travamento</h3><p>Tecnologia premium</p></div>
         </div>
     </section>
 
-    <!-- Channels Showcase com logos reais -->
-    <section class="channels-showcase" id="canais">
+    <section class="channels-showcase">
         <div class="section-title">
             <h2>Canais Disponíveis</h2>
-            <p>Confira alguns dos canais que você terá acesso.</p>
+            <p>+12.000 canais em todos os dispositivos</p>
         </div>
         <div class="channel-logos-grid">
-            <!-- Esportes -->
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2016/08/sport-tv-logo-1.png" alt="Sport TV" onerror="this.style.display='none'">
-            </div>
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2014/04/espn-logo-0.png" alt="ESPN" onerror="this.style.display='none'">
-            </div>
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2019/07/premiere-logo-1.png" alt="Premiere" onerror="this.style.display='none'">
-            </div>
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2015/05/paramount-logo-1.png" alt="Paramount" onerror="this.style.display='none'">
-            </div>
-            <!-- Filmes e Séries -->
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2014/12/hbo-logo-1.png" alt="HBO" onerror="this.style.display='none'">
-            </div>
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2017/05/telecine-logo-2.png" alt="Telecine" onerror="this.style.display='none'">
-            </div>
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2017/10/netflix-logo-1.png" alt="Netflix" onerror="this.style.display='none'">
-            </div>
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2018/04/disney-logo-2.png" alt="Disney" onerror="this.style.display='none'">
-            </div>
-            <!-- Adicionais -->
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2014/10/star-plus-logo-2.png" alt="Star+" onerror="this.style.display='none'">
-            </div>
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2018/03/prime-video-logo-0.png" alt="Prime Video" onerror="this.style.display='none'">
-            </div>
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2014/09/band-sports-logo-1.png" alt="Band Sports" onerror="this.style.display='none'">
-            </div>
-            <div class="channel-logo-card">
-                <img src="https://logodownload.org/wp-content/uploads/2016/06/tnt-sports-logo-2.png" alt="TNT Sports" onerror="this.style.display='none'">
-            </div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2016/08/sport-tv-logo-1.png" alt="Sport TV"></div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2014/04/espn-logo-0.png" alt="ESPN"></div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2019/07/premiere-logo-1.png" alt="Premiere"></div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2015/05/paramount-logo-1.png" alt="Paramount"></div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2014/12/hbo-logo-1.png" alt="HBO"></div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2017/05/telecine-logo-2.png" alt="Telecine"></div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2017/10/netflix-logo-1.png" alt="Netflix"></div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2018/04/disney-logo-2.png" alt="Disney"></div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2014/10/star-plus-logo-2.png" alt="Star+"></div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2018/03/prime-video-logo-0.png" alt="Prime Video"></div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2014/09/band-sports-logo-1.png" alt="Band Sports"></div>
+            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2016/06/tnt-sports-logo-2.png" alt="TNT Sports"></div>
         </div>
     </section>
 
-    <!-- Pricing -->
     <section class="pricing" id="planos">
         <div class="section-title">
             <h2>Planos e Preços</h2>
-            <p>Escolha o plano ideal para você. Todos com garantia de 7 dias.</p>
-        </
+            <p>Escolha o plano ideal para você</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="plan-card">
+                <h3>Plano Mensal</h3>
+                <div class="plan-price">R$ 29<span>,90</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> +10.000 canais</li>
+                    <li><i class="fas fa-check"></i> Suporte 24h</li>
+                    <li><i class="fas fa-check"></i> 1 tela simultânea</li>
+                </ul>
+                <a href="https://wa.me/5511999999999?text=Quero%20o%20plano%20MENSAL" target="_blank" class="plan-btn">Assinar</a>
+            </div>
+            <div class="plan-card destaque">
+                <h3>Plano Trimestral</h3>
+                <div class="plan-price">R$ 69<span>,90</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> +10.000 canais</li>
+                    <li><i class="fas fa-check"></i> Suporte VIP</li>
+                    <li><i class="fas fa-check"></i> 2 telas simultâneas</li>
+                    <li><i class="fas fa-check"></i> Bônus +500 canais</li>
+                </ul>
+                <a href="https://wa.me/5511999999999?text=Quero%20o%20plano%20TRIMESTRAL" target="_blank" class="plan-btn">Assinar</a>
+            </div>
+            <div class="plan-card">
+                <h3>Plano Anual</h3>
+                <div class="plan-price">R$ 199<span>,90</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> +10.000 canais</li>
+                    <li><i class="fas fa-check"></i> Suporte prioritário</li>
+                    <li><i class="fas fa-check"></i> 4 telas simultâneas</li>
+                    <li><i class="fas fa-check"></i> 2 meses grátis</li>
+                </ul>
+                <a href="https://wa.me/5511999999999?text=Quero%20o%20plano%20ANUAL" target="_blank" class="plan-btn">Assinar</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>O que nossos clientes dizem</h2>
+            <p>+15.000 clientes satisfeitos</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Melhor IPTV que já testei! Canais em Full HD sem travamentos."</p>
+                <div class="testimonial-author"><div class="avatar">CR</div><div><strong>Carlos R.</strong></div></div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Assisto todos os jogos do meu time com qualidade incrível!"</p>
+                <div class="testimonial-author"><div class="avatar">FM</div><div><strong>Fernanda M.</strong></div></div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Funciona perfeitamente na minha Smart TV. Recomendo!"</p>
+                <div class="testimonial-author"><div class="avatar">RA</div><div><strong>Ricardo A.</strong></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="section-title">
+            <h2>Perguntas Frequentes</h2>
+            <p>Tire suas dúvidas</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item"><div class="faq-question">Como funciona o teste grátis? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Solicite pelo WhatsApp, enviamos login em até 5 minutos. Teste de 24h com acesso total.</div></div>
+            <div class="faq-item"><div class="faq-question">Quais dispositivos são compatíveis? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Smart TVs, Fire Stick, Android, iOS, PC, Mac, Chromecast e TV Box.</div></div>
+            <div class="faq-item"><div class="faq-question">Tem garantia? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Sim, 7 dias de garantia incondicional. Dinheiro de volta se não gostar.</div></div>
+            <div class="faq-item"><div class="faq-question">Como assinar? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Clique em qualquer botão "Assinar" ou "Testar Grátis" e fale conosco no WhatsApp.</div></div>
+        </div>
+    </section>
+
+    <section class="cta-final">
+        <h2>Pronto para transformar sua TV?</h2>
+        <p>Teste grátis por 24h. Sem compromisso!</p>
+        <a href="https://wa.me/5511999999999" target="_blank" class="btn-whatsapp" style="padding: 18px 45px; font-size: 1.2rem;"><i class="fab fa-whatsapp"></i> TESTAR GRÁTIS</a>
+    </section>
+
+    <footer>
+        <p>TVPrime © 2025 - Todos os direitos reservados.</p>
+        <p style="margin-top: 10px;">Atendimento 24h pelo WhatsApp</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800);
+        });
+
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', () => item.classList.toggle('active'));
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === "#" || href === "#planos" || href === "#vantagens") {
+                    e.preventDefault();
+                    const target = document.getElementById(href.substring(1));
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
