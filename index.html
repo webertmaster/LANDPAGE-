@@ -125,6 +125,7 @@
             padding: 120px 5% 80px;
             position: relative;
             overflow: hidden;
+            gap: 40px;
         }
         .hero::before {
             content: '';
@@ -230,21 +231,21 @@
             box-shadow: 0 15px 40px rgba(37, 211, 102, 0.3);
         }
 
-        /* TV Animation */
+        /* TV Animation com logos reais */
         .tv-container {
             position: relative;
-            width: 400px;
-            height: 320px;
+            width: 420px;
+            height: 340px;
         }
         .tv-screen {
-            width: 380px;
-            height: 240px;
-            background: linear-gradient(135deg, #1a1a3e, #0d0d2b);
+            width: 400px;
+            height: 260px;
+            background: #0a0a1a;
             border-radius: 15px;
             border: 4px solid #2a2a4a;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 100px rgba(108,92,231,0.1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 100px rgba(108,92,231,0.15);
         }
         .tv-screen::after {
             content: '';
@@ -252,6 +253,8 @@
             inset: 0;
             background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
             animation: shine 3s infinite;
+            z-index: 2;
+            pointer-events: none;
         }
         @keyframes shine {
             0% { transform: translateX(-100%); }
@@ -274,20 +277,45 @@
         .channel-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            padding: 10px;
+            gap: 1px;
+            padding: 2px;
             position: absolute;
             inset: 0;
+            z-index: 1;
         }
         .channel-thumb {
-            border-radius: 5px;
-            animation: channelFade 4s infinite alternate;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111;
         }
-        .channel-thumb:nth-child(odd) { animation-delay: 1s; }
-        .channel-thumb:nth-child(even) { animation-delay: 2s; }
-        @keyframes channelFade {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
+        .channel-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 8px;
+            filter: brightness(0.9);
+            transition: all 0.5s;
+        }
+        .channel-thumb:hover img {
+            filter: brightness(1.2);
+            transform: scale(1.1);
+        }
+        .channel-thumb .live-dot {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background: #ff0000;
+            border-radius: 50%;
+            animation: livePulse 1.5s infinite;
+        }
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 5px #ff0000; }
+            50% { opacity: 0.3; box-shadow: 0 0 15px #ff0000; }
         }
 
         /* Trust Strip */
@@ -373,10 +401,50 @@
             font-size: 0.9rem;
         }
 
+        /* Channels Showcase com logos reais */
+        .channels-showcase {
+            padding: 80px 5%;
+            background: var(--dark-light);
+        }
+        .channel-logos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 40px auto 0;
+        }
+        .channel-logo-card {
+            background: #111;
+            border-radius: 16px;
+            padding: 20px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+            aspect-ratio: 16/10;
+            cursor: pointer;
+        }
+        .channel-logo-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(108,92,231,0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+        .channel-logo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0.85);
+            transition: all 0.3s;
+        }
+        .channel-logo-card:hover img {
+            filter: brightness(1.1);
+            transform: scale(1.08);
+        }
+
         /* Pricing */
         .pricing {
             padding: 100px 5%;
-            background: var(--dark-light);
         }
         .pricing-grid {
             display: grid;
@@ -386,7 +454,7 @@
             margin: 0 auto;
         }
         .plan-card {
-            background: var(--dark);
+            background: var(--dark-light);
             border-radius: 20px;
             padding: 40px 30px;
             text-align: center;
@@ -398,6 +466,7 @@
             border-color: var(--primary);
             transform: scale(1.03);
             box-shadow: 0 0 60px rgba(108,92,231,0.15);
+            background: #1a1a35;
         }
         .plan-card.destaque::before {
             content: 'MAIS POPULAR';
@@ -462,37 +531,10 @@
             box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
         }
 
-        /* Channels Strip */
-        .channels-strip {
-            padding: 60px 5%;
-            text-align: center;
-        }
-        .channel-logos {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 30px;
-        }
-        .channel-logo-item {
-            width: 90px;
-            height: 90px;
-            background: var(--dark-light);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            transition: all 0.3s;
-        }
-        .channel-logo-item:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(108,92,231,0.2);
-        }
-
         /* Testimonials */
         .testimonials {
             padding: 100px 5%;
+            background: var(--dark-light);
         }
         .testimonials-grid {
             display: grid;
@@ -502,7 +544,7 @@
             margin: 0 auto;
         }
         .testimonial-card {
-            background: var(--dark-light);
+            background: var(--dark);
             padding: 30px;
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.03);
@@ -546,14 +588,13 @@
         /* FAQ */
         .faq {
             padding: 100px 5%;
-            background: var(--dark-light);
         }
         .faq-list {
             max-width: 700px;
             margin: 0 auto;
         }
         .faq-item {
-            background: var(--dark);
+            background: var(--dark-light);
             border-radius: 15px;
             margin-bottom: 15px;
             border: 1px solid rgba(255,255,255,0.03);
@@ -589,6 +630,7 @@
         .cta-final {
             padding: 100px 5%;
             text-align: center;
+            background: var(--dark-light);
         }
         .cta-final h2 {
             font-size: 2.5rem;
@@ -605,7 +647,7 @@
 
         /* Footer */
         footer {
-            background: var(--dark-light);
+            background: #08081a;
             padding: 40px 5%;
             text-align: center;
             border-top: 1px solid rgba(255,255,255,0.03);
@@ -617,6 +659,35 @@
         footer a {
             color: var(--primary);
             text-decoration: none;
+        }
+
+        /* Float WhatsApp Button */
+        .float-whatsapp {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 999;
+            background: var(--whatsapp);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #fff;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            animation: float 3s ease-in-out infinite;
+            transition: all 0.3s;
+        }
+        .float-whatsapp:hover {
+            transform: scale(1.15);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         /* Responsivo */
@@ -639,11 +710,11 @@
             .tv-container {
                 width: 300px;
                 height: 250px;
-                margin-top: 40px;
+                margin-top: 30px;
             }
             .tv-screen {
                 width: 280px;
-                height: 180px;
+                height: 190px;
             }
             .trust-strip {
                 gap: 25px;
@@ -658,6 +729,14 @@
             .plan-card.destaque {
                 transform: scale(1);
             }
+            .channel-logos-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            .channel-logo-card {
+                padding: 12px 8px;
+                border-radius: 12px;
+            }
         }
     </style>
 </head>
@@ -667,6 +746,11 @@
     <div class="loader" id="loader">
         <div class="loader-circle"></div>
     </div>
+
+    <!-- Float WhatsApp -->
+    <a href="https://wa.me/SEUNUMERO" target="_blank" class="float-whatsapp" title="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <!-- Header -->
     <header id="header">
@@ -698,14 +782,34 @@
             <div class="tv-container">
                 <div class="tv-screen">
                     <div class="channel-grid">
-                        <div class="channel-thumb" style="background: linear-gradient(135deg, #e74c3c, #c0392b);"></div>
-                        <div class="channel-thumb" style="background: linear-gradient(135deg, #3498db, #2980b9);"></div>
-                        <div class="channel-thumb" style="background: linear-gradient(135deg, #2ecc71, #27ae60);"></div>
-                        <div class="channel-thumb" style="background: linear-gradient(135deg, #f39c12, #e67e22);"></div>
-                        <div class="channel-thumb" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);"></div>
-                        <div class="channel-thumb" style="background: linear-gradient(135deg, #1abc9c, #16a085);"></div>
-                        <div class="channel-thumb" style="background: linear-gradient(135deg, #e67e22, #d35400);"></div>
-                        <div class="channel-thumb" style="background: linear-gradient(135deg, #2c3e50, #34495e);"></div>
+                        <!-- Primeira linha - Esportes -->
+                        <div class="channel-thumb">
+                            <img src="https://logodownload.org/wp-content/uploads/2016/08/sport-tv-logo-1.png" alt="Sport TV" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>SPORT TV</span>'">
+                            <div class="live-dot"></div>
+                        </div>
+                        <div class="channel-thumb">
+                            <img src="https://logodownload.org/wp-content/uploads/2014/04/espn-logo-0.png" alt="ESPN" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>ESPN</span>'">
+                        </div>
+                        <div class="channel-thumb">
+                            <img src="https://logodownload.org/wp-content/uploads/2019/07/premiere-logo-1.png" alt="Premiere" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>PREMIERE</span>'">
+                            <div class="live-dot"></div>
+                        </div>
+                        <div class="channel-thumb">
+                            <img src="https://logodownload.org/wp-content/uploads/2015/05/paramount-logo-1.png" alt="Paramount" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>PARAMOUNT</span>'">
+                        </div>
+                        <!-- Segunda linha - Filmes e Séries -->
+                        <div class="channel-thumb">
+                            <img src="https://logodownload.org/wp-content/uploads/2014/12/hbo-logo-1.png" alt="HBO" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>HBO</span>'">
+                        </div>
+                        <div class="channel-thumb">
+                            <img src="https://logodownload.org/wp-content/uploads/2017/05/telecine-logo-2.png" alt="Telecine" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>TELECINE</span>'">
+                        </div>
+                        <div class="channel-thumb">
+                            <img src="https://logodownload.org/wp-content/uploads/2017/10/netflix-logo-1.png" alt="Netflix" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>NETFLIX</span>'">
+                        </div>
+                        <div class="channel-thumb">
+                            <img src="https://logodownload.org/wp-content/uploads/2018/04/disney-logo-2.png" alt="Disney" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#fff;font-weight:700;font-size:0.7rem>DISNEY</span>'">
+                        </div>
                     </div>
                 </div>
                 <div class="tv-stand"></div>
@@ -737,7 +841,7 @@
             <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-film"></i></div>
                 <h3>Filmes e Séries</h3>
-                <p>Milhares de títulos on-demand atualizados semanalmente.</p>
+                <p>Catálogo completo com lançamentos atualizados semanalmente.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-futbol"></i></div>
@@ -762,19 +866,52 @@
         </div>
     </section>
 
-    <!-- Channels -->
-    <section class="channels-strip">
+    <!-- Channels Showcase com logos reais -->
+    <section class="channels-showcase" id="canais">
         <div class="section-title">
-            <h2>Canais Populares</h2>
-            <p>E muitos outros disponíveis na nossa grade completa.</p>
+            <h2>Canais Disponíveis</h2>
+            <p>Confira alguns dos canais que você terá acesso.</p>
         </div>
-        <div class="channel-logos">
-            <div class="channel-logo-item"><i class="fab fa-youtube" style="color:#ff0000;"></i></div>
-            <div class="channel-logo-item"><i class="fas fa-futbol" style="color:#1a8c3a;"></i></div>
-            <div class="channel-logo-item"><i class="fas fa-film" style="color:#f5c518;"></i></div>
-            <div class="channel-logo-item"><i class="fas fa-tv" style="color:#e74c3c;"></i></div>
-            <div class="channel-logo-item"><i class="fas fa-play-circle" style="color:#3498db;"></i></div>
-            <div class="channel-logo-item"><i class="fas fa-star" style="color:#f39c12;"></i></div>
+        <div class="channel-logos-grid">
+            <!-- Esportes -->
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2016/08/sport-tv-logo-1.png" alt="Sport TV" onerror="this.style.display='none'">
+            </div>
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2014/04/espn-logo-0.png" alt="ESPN" onerror="this.style.display='none'">
+            </div>
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2019/07/premiere-logo-1.png" alt="Premiere" onerror="this.style.display='none'">
+            </div>
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2015/05/paramount-logo-1.png" alt="Paramount" onerror="this.style.display='none'">
+            </div>
+            <!-- Filmes e Séries -->
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2014/12/hbo-logo-1.png" alt="HBO" onerror="this.style.display='none'">
+            </div>
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2017/05/telecine-logo-2.png" alt="Telecine" onerror="this.style.display='none'">
+            </div>
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2017/10/netflix-logo-1.png" alt="Netflix" onerror="this.style.display='none'">
+            </div>
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2018/04/disney-logo-2.png" alt="Disney" onerror="this.style.display='none'">
+            </div>
+            <!-- Adicionais -->
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2014/10/star-plus-logo-2.png" alt="Star+" onerror="this.style.display='none'">
+            </div>
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2018/03/prime-video-logo-0.png" alt="Prime Video" onerror="this.style.display='none'">
+            </div>
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2014/09/band-sports-logo-1.png" alt="Band Sports" onerror="this.style.display='none'">
+            </div>
+            <div class="channel-logo-card">
+                <img src="https://logodownload.org/wp-content/uploads/2016/06/tnt-sports-logo-2.png" alt="TNT Sports" onerror="this.style.display='none'">
+            </div>
         </div>
     </section>
 
@@ -783,176 +920,4 @@
         <div class="section-title">
             <h2>Planos e Preços</h2>
             <p>Escolha o plano ideal para você. Todos com garantia de 7 dias.</p>
-        </div>
-        <div class="pricing-grid">
-            <div class="plan-card">
-                <h3>Plano Mensal</h3>
-                <div class="plan-price">R$29<span>,90</span></div>
-                <div class="plan-period">por mês</div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> +10.000 canais</li>
-                    <li><i class="fas fa-check"></i> Full HD / 4K</li>
-                    <li><i class="fas fa-check"></i> 1 dispositivo</li>
-                    <li><i class="fas fa-check"></i> Suporte 24h</li>
-                    <li><i class="fas fa-check"></i> 7 dias de garantia</li>
-                </ul>
-                <a href="https://wa.me/SEUNUMERO" target="_blank" class="plan-btn">Assinar Agora</a>
-            </div>
-            <div class="plan-card destaque">
-                <h3>Plano Trimestral</h3>
-                <div class="plan-price">R$69<span>,90</span></div>
-                <div class="plan-period">3 meses • R$23,30/mês</div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> +10.000 canais</li>
-                    <li><i class="fas fa-check"></i> Full HD / 4K</li>
-                    <li><i class="fas fa-check"></i> 2 dispositivos</li>
-                    <li><i class="fas fa-check"></i> Suporte VIP 24h</li>
-                    <li><i class="fas fa-check"></i> 7 dias de garantia</li>
-                    <li><i class="fas fa-check"></i> Conteúdo adulto (opcional)</li>
-                </ul>
-                <a href="https://wa.me/SEUNUMERO" target="_blank" class="plan-btn">Assinar Agora</a>
-            </div>
-            <div class="plan-card">
-                <h3>Plano Anual</h3>
-                <div class="plan-price">R$199<span>,90</span></div>
-                <div class="plan-period">12 meses • R$16,65/mês</div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> +10.000 canais</li>
-                    <li><i class="fas fa-check"></i> Full HD / 4K / HDR</li>
-                    <li><i class="fas fa-check"></i> 3 dispositivos</li>
-                    <li><i class="fas fa-check"></i> Suporte VIP 24h</li>
-                    <li><i class="fas fa-check"></i> 7 dias de garantia</li>
-                    <li><i class="fas fa-check"></i> Conteúdo adulto (opcional)</li>
-                </ul>
-                <a href="https://wa.me/SEUNUMERO" target="_blank" class="plan-btn">Assinar Agora</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="section-title">
-            <h2>O que nossos clientes dizem</h2>
-            <p>Mais de 5.000 clientes satisfeitos em todo o Brasil.</p>
-        </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p>"Melhor IPTV que já usei! Não trava, tem todos os canais de futebol e o suporte responde muito rápido."</p>
-                <div class="testimonial-author">
-                    <div class="avatar">CM</div>
-                    <div>
-                        <strong>Carlos Menezes</strong>
-                        <span>Cliente há 8 meses</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p>"Assinei o plano anual e não me arrependo. Qualidade de imagem excelente e nunca fiquei sem sinal."</p>
-                <div class="testimonial-author">
-                    <div class="avatar">AP</div>
-                    <div>
-                        <strong>Ana Paula</strong>
-                        <span>Cliente há 1 ano</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p>"O melhor custo-benefício! Pago muito menos que TV por assinatura e tenho muito mais conteúdo."</p>
-                <div class="testimonial-author">
-                    <div class="avatar">RS</div>
-                    <div>
-                        <strong>Rafael Silva</strong>
-                        <span>Cliente há 3 meses</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq">
-        <div class="section-title">
-            <h2>Perguntas Frequentes</h2>
-            <p>Tire suas dúvidas antes de assinar.</p>
-        </div>
-        <div class="faq-list">
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    Como funciona a garantia de 7 dias?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">Se você não ficar satisfeito em até 7 dias após a compra, devolvemos 100% do seu dinheiro, sem questionamentos.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    Em quais dispositivos posso assistir?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">Nosso IPTV é compatível com Smart TVs (Samsung, LG, etc.), Android, iOS, Fire Stick, PC, Mac e qualquer dispositivo que aceite apps IPTV.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    Como recebo o acesso após a compra?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">O acesso é enviado via WhatsApp ou e-mail em até 5 minutos após a confirmação do pagamento.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    Tem canais de futebol?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">Sim! Todos os canais esportivos: ESPN, Fox Sports, SporTV, TNT Sports, Premiere e muito mais.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Final -->
-    <section class="cta-final">
-        <h2>Pronto para a melhor experiência IPTV?</h2>
-        <p>Faça um teste grátis agora mesmo e descubra por que somos a escolha número 1 dos brasileiros.</p>
-        <a href="https://wa.me/SEUNUMERO" target="_blank" class="btn-whatsapp" style="display: inline-flex;">
-            <i class="fab fa-whatsapp"></i> Quero Testar Grátis
-        </a>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 TVPrime. Todos os direitos reservados. | <a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a></p>
-        <p style="margin-top: 5px;">Suporte 24h via WhatsApp</p>
-    </footer>
-
-    <script>
-        // Loader
-        window.addEventListener('load', () => {
-            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800);
-        });
-
-        // Header scroll
-        window.addEventListener('scroll', () => {
-            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // FAQ Toggle
-        function toggleFAQ(element) {
-            const item = element.parentElement;
-            document.querySelectorAll('.faq-item').forEach(el => {
-                if (el !== item) el.classList.remove('active');
-            });
-            item.classList.toggle('active');
-        }
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-    </script>
-</body>
-</html>
+        </
