@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONNECTA PRO - IPTV Premium | +10.000 Canais em Full HD</title>
+    <title>TVPrime - IPTV Premium | +10.000 Canais em Full HD</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -167,12 +167,16 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            flex-direction: column;
+            gap: 5px;
         }
-        .channel-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 8px;
+        .channel-thumb i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        .channel-thumb span {
+            font-size: 0.6rem;
+            font-weight: 600;
         }
         .live-dot {
             position: absolute;
@@ -205,6 +209,8 @@
         .features { padding: 100px 5%; }
         .section-title { text-align: center; margin-bottom: 60px; }
         .section-title h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        .section-title p { color: var(--text-muted); }
+        
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -236,23 +242,26 @@
         .channels-showcase { padding: 80px 5%; background: var(--dark-light); }
         .channel-logos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 20px;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 40px auto 0;
         }
         .channel-logo-card {
             background: #111;
             border-radius: 16px;
             padding: 20px 15px;
-            aspect-ratio: 16/10;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 12px;
             transition: all 0.3s;
+            cursor: pointer;
         }
-        .channel-logo-card:hover { transform: translateY(-5px); }
-        .channel-logo-card img { width: 100%; height: 100%; object-fit: contain; }
+        .channel-logo-card:hover { transform: translateY(-5px); background: #1a1a2e; }
+        .channel-logo-card i { font-size: 2rem; color: var(--primary); }
+        .channel-logo-card span { font-weight: 600; font-size: 0.75rem; color: var(--text-muted); }
 
         .pricing { padding: 100px 5%; }
         .pricing-grid {
@@ -288,6 +297,7 @@
             font-weight: 700;
         }
         .plan-price { font-size: 2.8rem; font-weight: 900; color: var(--secondary); }
+        .plan-price span { font-size: 1rem; color: var(--text-muted); }
         .plan-features { list-style: none; margin: 25px 0; text-align: left; }
         .plan-features li { padding: 8px 0; color: var(--text-muted); }
         .plan-features li i { color: var(--secondary); margin-right: 10px; }
@@ -317,6 +327,7 @@
             border-radius: 20px;
         }
         .testimonial-card .stars { color: var(--gold); margin-bottom: 15px; }
+        .testimonial-card p { color: var(--text-muted); font-style: italic; margin-bottom: 20px; }
         .testimonial-author { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
         .avatar {
             width: 45px;
@@ -344,6 +355,7 @@
             justify-content: space-between;
             font-weight: 600;
         }
+        .faq-question:hover { color: var(--primary); }
         .faq-answer {
             padding: 0 25px 20px;
             color: var(--text-muted);
@@ -353,6 +365,8 @@
         .faq-item.active .faq-question i { transform: rotate(180deg); }
 
         .cta-final { padding: 100px 5%; text-align: center; background: var(--dark-light); }
+        .cta-final h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        
         footer {
             background: #08081a;
             padding: 40px 5%;
@@ -416,7 +430,7 @@
         <div class="hero-content">
             <div class="hero-badge">🔥 OFERTA ESPECIAL HOJE</div>
             <h1>O melhor <span class="gradient-text">IPTV</span> do Brasil está aqui</h1>
-            <p>Mais de <strong>10.000 canais</strong> em Full HD, 4K, filmes, séries e futebol ao vivo.</p>
+            <p>Mais de <strong>10.000 canais</strong> em Full HD, 4K, filmes, séries e futebol ao vivo. Tudo por um preço que cabe no seu bolso.</p>
             <div class="hero-buttons">
                 <a href="#planos" class="btn-primary"><i class="fas fa-crown"></i> Ver Planos</a>
                 <a href="https://wa.me/5511999999999" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Teste Grátis</a>
@@ -426,14 +440,14 @@
             <div class="tv-container">
                 <div class="tv-screen">
                     <div class="channel-grid">
-                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2016/08/sport-tv-logo-1.png" alt="Sport TV"><div class="live-dot"></div></div>
-                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2014/04/espn-logo-0.png" alt="ESPN"></div>
-                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2019/07/premiere-logo-1.png" alt="Premiere"><div class="live-dot"></div></div>
-                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2015/05/paramount-logo-1.png" alt="Paramount"></div>
-                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2014/12/hbo-logo-1.png" alt="HBO"></div>
-                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2017/05/telecine-logo-2.png" alt="Telecine"></div>
-                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2017/10/netflix-logo-1.png" alt="Netflix"></div>
-                        <div class="channel-thumb"><img src="https://logodownload.org/wp-content/uploads/2018/04/disney-logo-2.png" alt="Disney"></div>
+                        <div class="channel-thumb"><i class="fas fa-futbol"></i><span>SPORT</span><div class="live-dot"></div></div>
+                        <div class="channel-thumb"><i class="fas fa-trophy"></i><span>ESPN</span></div>
+                        <div class="channel-thumb"><i class="fas fa-crown"></i><span>PREMIERE</span><div class="live-dot"></div></div>
+                        <div class="channel-thumb"><i class="fas fa-star"></i><span>PARAMOUNT</span></div>
+                        <div class="channel-thumb"><i class="fas fa-film"></i><span>HBO</span></div>
+                        <div class="channel-thumb"><i class="fas fa-video"></i><span>TELECINE</span></div>
+                        <div class="channel-thumb"><i class="fas fa-play-circle"></i><span>NETFLIX</span></div>
+                        <div class="channel-thumb"><i class="fas fa-magic"></i><span>DISNEY</span></div>
                     </div>
                 </div>
                 <div class="tv-stand"></div>
@@ -452,76 +466,76 @@
     <section class="features">
         <div class="section-title">
             <h2>Por que escolher a TVPrime?</h2>
-            <p>A melhor experiência em IPTV</p>
+            <p>Oferecemos a melhor experiência de IPTV com qualidade e estabilidade.</p>
         </div>
         <div class="features-grid">
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-satellite-dish"></i></div><h3>+10.000 Canais</h3><p>Canais nacionais e internacionais</p></div>
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-film"></i></div><h3>Filmes e Séries</h3><p>Lançamentos atualizados</p></div>
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-futbol"></i></div><h3>Futebol Ao Vivo</h3><p>Todos os campeonatos</p></div>
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-4k"></i></div><h3>Qualidade 4K</h3><p>Full HD, 4K e HDR</p></div>
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-mobile-alt"></i></div><h3>Multi-dispositivos</h3><p>TV, celular, tablet, PC</p></div>
-            <div class="feature-card"><div class="feature-icon"><i class="fas fa-sync-alt"></i></div><h3>Anti-Travamento</h3><p>Tecnologia premium</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-satellite-dish"></i></div><h3>+10.000 Canais</h3><p>Canais nacionais e internacionais, incluindo todos os esportes.</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-film"></i></div><h3>Filmes e Séries</h3><p>Catálogo completo com lançamentos atualizados semanalmente.</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-futbol"></i></div><h3>Futebol Ao Vivo</h3><p>Todos os campeonatos: Brasileirão, Premier League, Champions e mais.</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-4k"></i></div><h3>Qualidade 4K</h3><p>Transmissão em Full HD, 4K e HDR com estabilidade total.</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-mobile-alt"></i></div><h3>Multi-dispositivos</h3><p>Assista na TV, celular, tablet, PC ou Fire Stick.</p></div>
+            <div class="feature-card"><div class="feature-icon"><i class="fas fa-sync-alt"></i></div><h3>Anti-Travamento</h3><p>Servidores premium com tecnologia anti-congelamento.</p></div>
         </div>
     </section>
 
     <section class="channels-showcase">
         <div class="section-title">
             <h2>Canais Disponíveis</h2>
-            <p>+12.000 canais em todos os dispositivos</p>
+            <p>Confira alguns dos canais que você terá acesso.</p>
         </div>
         <div class="channel-logos-grid">
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2016/08/sport-tv-logo-1.png" alt="Sport TV"></div>
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2014/04/espn-logo-0.png" alt="ESPN"></div>
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2019/07/premiere-logo-1.png" alt="Premiere"></div>
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2015/05/paramount-logo-1.png" alt="Paramount"></div>
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2014/12/hbo-logo-1.png" alt="HBO"></div>
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2017/05/telecine-logo-2.png" alt="Telecine"></div>
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2017/10/netflix-logo-1.png" alt="Netflix"></div>
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2018/04/disney-logo-2.png" alt="Disney"></div>
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2014/10/star-plus-logo-2.png" alt="Star+"></div>
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2018/03/prime-video-logo-0.png" alt="Prime Video"></div>
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2014/09/band-sports-logo-1.png" alt="Band Sports"></div>
-            <div class="channel-logo-card"><img src="https://logodownload.org/wp-content/uploads/2016/06/tnt-sports-logo-2.png" alt="TNT Sports"></div>
+            <div class="channel-logo-card"><i class="fas fa-futbol"></i><span>SPORT TV</span></div>
+            <div class="channel-logo-card"><i class="fas fa-trophy"></i><span>ESPN</span></div>
+            <div class="channel-logo-card"><i class="fas fa-crown"></i><span>PREMIERE</span></div>
+            <div class="channel-logo-card"><i class="fas fa-star"></i><span>PARAMOUNT</span></div>
+            <div class="channel-logo-card"><i class="fas fa-film"></i><span>HBO</span></div>
+            <div class="channel-logo-card"><i class="fas fa-video"></i><span>TELECINE</span></div>
+            <div class="channel-logo-card"><i class="fas fa-play-circle"></i><span>NETFLIX</span></div>
+            <div class="channel-logo-card"><i class="fas fa-magic"></i><span>DISNEY+</span></div>
+            <div class="channel-logo-card"><i class="fas fa-tv"></i><span>STAR+</span></div>
+            <div class="channel-logo-card"><i class="fas fa-shopping-cart"></i><span>PRIME VIDEO</span></div>
+            <div class="channel-logo-card"><i class="fas fa-futbol"></i><span>BAND SPORTS</span></div>
+            <div class="channel-logo-card"><i class="fas fa-bolt"></i><span>TNT SPORTS</span></div>
         </div>
     </section>
 
     <section class="pricing" id="planos">
         <div class="section-title">
             <h2>Planos e Preços</h2>
-            <p>Escolha o plano ideal para você</p>
+            <p>Escolha o plano ideal para você. Todos com garantia de 7 dias.</p>
         </div>
         <div class="pricing-grid">
             <div class="plan-card">
-                <h3>Plano Mensal</h3>
+                <h3>Plano MENSAL</h3>
                 <div class="plan-price">R$ 29<span>,90</span></div>
                 <ul class="plan-features">
                     <li><i class="fas fa-check"></i> +10.000 canais</li>
-                    <li><i class="fas fa-check"></i> Suporte 24h</li>
+                    <li><i class="fas fa-check"></i> Suporte 24/7</li>
                     <li><i class="fas fa-check"></i> 1 tela simultânea</li>
                 </ul>
-                <a href="https://wa.me/5511999999999?text=Quero%20o%20plano%20MENSAL" target="_blank" class="plan-btn">Assinar</a>
+                <a href="https://wa.me/5511999999999?text=Quero%20o%20plano%20MENSAL" target="_blank" class="plan-btn">Assinar Agora</a>
             </div>
             <div class="plan-card destaque">
-                <h3>Plano Trimestral</h3>
+                <h3>Plano TRIMESTRAL</h3>
                 <div class="plan-price">R$ 69<span>,90</span></div>
                 <ul class="plan-features">
                     <li><i class="fas fa-check"></i> +10.000 canais</li>
-                    <li><i class="fas fa-check"></i> Suporte VIP</li>
+                    <li><i class="fas fa-check"></i> Suporte VIP 24/7</li>
                     <li><i class="fas fa-check"></i> 2 telas simultâneas</li>
                     <li><i class="fas fa-check"></i> Bônus +500 canais</li>
                 </ul>
-                <a href="https://wa.me/5511999999999?text=Quero%20o%20plano%20TRIMESTRAL" target="_blank" class="plan-btn">Assinar</a>
+                <a href="https://wa.me/5511999999999?text=Quero%20o%20plano%20TRIMESTRAL" target="_blank" class="plan-btn">Assinar Agora</a>
             </div>
             <div class="plan-card">
-                <h3>Plano Anual</h3>
+                <h3>Plano ANUAL</h3>
                 <div class="plan-price">R$ 199<span>,90</span></div>
                 <ul class="plan-features">
                     <li><i class="fas fa-check"></i> +10.000 canais</li>
-                    <li><i class="fas fa-check"></i> Suporte prioritário</li>
+                    <li><i class="fas fa-check"></i> Suporte Prioritário</li>
                     <li><i class="fas fa-check"></i> 4 telas simultâneas</li>
                     <li><i class="fas fa-check"></i> 2 meses grátis</li>
                 </ul>
-                <a href="https://wa.me/5511999999999?text=Quero%20o%20plano%20ANUAL" target="_blank" class="plan-btn">Assinar</a>
+                <a href="https://wa.me/5511999999999?text=Quero%20o%20plano%20ANUAL" target="_blank" class="plan-btn">Assinar Agora</a>
             </div>
         </div>
     </section>
@@ -529,23 +543,23 @@
     <section class="testimonials">
         <div class="section-title">
             <h2>O que nossos clientes dizem</h2>
-            <p>+15.000 clientes satisfeitos</p>
+            <p>Mais de 15.000 clientes satisfeitos em todo o Brasil.</p>
         </div>
         <div class="testimonials-grid">
             <div class="testimonial-card">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>"Melhor IPTV que já testei! Canais em Full HD sem travamentos."</p>
-                <div class="testimonial-author"><div class="avatar">CR</div><div><strong>Carlos R.</strong></div></div>
+                <p>"Melhor serviço de IPTV que já testei. Canais em Full HD sem travamentos e o suporte responde na hora pelo WhatsApp. Recomendo demais!"</p>
+                <div class="testimonial-author"><div class="avatar">CR</div><div><strong>Carlos Ribeiro</strong><span>Cliente há 6 meses</span></div></div>
             </div>
             <div class="testimonial-card">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>"Assisto todos os jogos do meu time com qualidade incrível!"</p>
-                <div class="testimonial-author"><div class="avatar">FM</div><div><strong>Fernanda M.</strong></div></div>
+                <p>"Assisto todos os jogos do meu time sem preocupação. A qualidade 4K é surreal e o preço cabe no bolso. Teste grátis funciona mesmo!"</p>
+                <div class="testimonial-author"><div class="avatar">FM</div><div><strong>Fernanda Mendes</strong><span>Cliente há 3 meses</span></div></div>
             </div>
             <div class="testimonial-card">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>"Funciona perfeitamente na minha Smart TV. Recomendo!"</p>
-                <div class="testimonial-author"><div class="avatar">RA</div><div><strong>Ricardo A.</strong></div></div>
+                <p>"Funciona perfeitamente na minha Smart TV, no celular e no computador. O catálogo de filmes é enorme, sempre atualizado. Nota 10!"</p>
+                <div class="testimonial-author"><div class="avatar">RA</div><div><strong>Ricardo Almeida</strong><span>Cliente há 1 ano</span></div></div>
             </div>
         </div>
     </section>
@@ -553,25 +567,25 @@
     <section class="faq">
         <div class="section-title">
             <h2>Perguntas Frequentes</h2>
-            <p>Tire suas dúvidas</p>
+            <p>Tire todas as suas dúvidas sobre o serviço.</p>
         </div>
         <div class="faq-list">
-            <div class="faq-item"><div class="faq-question">Como funciona o teste grátis? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Solicite pelo WhatsApp, enviamos login em até 5 minutos. Teste de 24h com acesso total.</div></div>
-            <div class="faq-item"><div class="faq-question">Quais dispositivos são compatíveis? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Smart TVs, Fire Stick, Android, iOS, PC, Mac, Chromecast e TV Box.</div></div>
-            <div class="faq-item"><div class="faq-question">Tem garantia? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Sim, 7 dias de garantia incondicional. Dinheiro de volta se não gostar.</div></div>
-            <div class="faq-item"><div class="faq-question">Como assinar? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Clique em qualquer botão "Assinar" ou "Testar Grátis" e fale conosco no WhatsApp.</div></div>
+            <div class="faq-item"><div class="faq-question">Como funciona o teste grátis? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Você solicita o teste pelo WhatsApp, enviamos seu login e senha em até 5 minutos. O teste dura 24h com acesso total a todos os canais e recursos.</div></div>
+            <div class="faq-item"><div class="faq-question">Quais dispositivos são compatíveis? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Smart TVs (LG, Samsung, TCL), Android TV, Fire Stick, celulares (Android/iOS), PC, Mac, Chromecast e TV Box.</div></div>
+            <div class="faq-item"><div class="faq-question">Tem garantia? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Sim, todos os planos têm garantia incondicional de 7 dias. Se não gostar, devolvemos 100% do seu dinheiro.</div></div>
+            <div class="faq-item"><div class="faq-question">Como faço para assinar? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Basta clicar em qualquer botão "Assinar Agora" ou "Testar Grátis", você será redirecionado ao WhatsApp para finalizar o pedido.</div></div>
         </div>
     </section>
 
     <section class="cta-final">
         <h2>Pronto para transformar sua TV?</h2>
-        <p>Teste grátis por 24h. Sem compromisso!</p>
-        <a href="https://wa.me/5511999999999" target="_blank" class="btn-whatsapp" style="padding: 18px 45px; font-size: 1.2rem;"><i class="fab fa-whatsapp"></i> TESTAR GRÁTIS</a>
+        <p>Mais de 10.000 canais, filmes, séries e esportes ao vivo. Teste grátis hoje mesmo!</p>
+        <a href="https://wa.me/5511999999999" target="_blank" class="btn-whatsapp" style="padding: 18px 45px; font-size: 1.2rem;"><i class="fab fa-whatsapp"></i> GANHE SEU TESTE GRÁTIS</a>
     </section>
 
     <footer>
         <p>TVPrime © 2025 - Todos os direitos reservados.</p>
-        <p style="margin-top: 10px;">Atendimento 24h pelo WhatsApp</p>
+        <p style="margin-top: 10px;">Atendimento 24h pelo WhatsApp: (11) 99999-9999</p>
     </footer>
 
     <script>
@@ -592,7 +606,7 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                if (href === "#" || href === "#planos" || href === "#vantagens") {
+                if (href === "#" || href === "#planos") {
                     e.preventDefault();
                     const target = document.getElementById(href.substring(1));
                     if (target) target.scrollIntoView({ behavior: 'smooth' });
