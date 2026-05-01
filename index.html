@@ -209,7 +209,7 @@
         <div id="secaoJogos" class="tab-content">
             <div class="input-group">
                 <label>Sua Chave da API (X-RapidAPI-Key):</label>
-                <input type="text" id="apiKey" placeholder="Cole sua chave aqui">
+                <input type="text" id="apiKey" placeholder="Cole sua chave aqui" value="2849cf89e2msh0c69a94f976b2c9p1afe0ajsn36a585521294">
             </div>
             <button class="action-btn" onclick="buscarJogosDoDia()">⚽ Buscar Jogos de Hoje</button>
             <textarea id="resJogos" style="height: 220px;" placeholder="Os jogos aparecerão aqui..." readonly></textarea>
@@ -313,10 +313,9 @@
             } else if (tipo === 'suporte') {
                 txt = `🛠️ SUPORTE RÁPIDO\n\nEstá travando? Tente:\n1️⃣ Desligue TV e Roteador da tomada.\n2️⃣ Aguarde 30 segundos e ligue.\n3️⃣ Limpe o cache do app.\n\nIsso resolve 90% dos casos! 📺`;
             }
-            document.getElementById('resNovas').value = txt;
+            document.getElementById8('resNovas').value = txt;
         }
 
-        // FUNÇÃO PARA CHAMAR A API
         async function buscarJogosDoDia() {
             const apiKey = document.getElementById('apiKey').value;
             const resArea = document.getElementById('resJogos');
@@ -328,7 +327,7 @@
 
             resArea.value = "Buscando jogos, por favor aguarde...";
 
-            const today = "2026-05-01"; // Data de hoje
+            const today = "2026-05-01"; 
             const url = `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${today}`;
 
             try {
