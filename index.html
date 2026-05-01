@@ -115,8 +115,11 @@
             transition: 0.2s;
         }
 
+        .action-btn:hover { background-color: var(--accent-hover); }
+
         .btn-copy { background-color: #29292e; margin-top: 8px; }
         .btn-whatsapp { background-color: var(--whatsapp-color); color: #000; margin-top: 5px; }
+        .btn-whatsapp:hover { background-color: #128c7e; color: #fff; }
 
         .logout-link {
             display: block;
@@ -158,7 +161,6 @@
             <button class="tab-btn" onclick="switchTab('jogos')">Jogos API</button>
         </div>
 
-        <!-- ABAS DE CONTEÚDO -->
         <div id="secaoOfertas" class="tab-content active">
             <div class="input-group"><label>Valor do Plano (R$):</label><input type="text" id="vOferta" value="25,00"></div>
             <button class="action-btn" onclick="gerarOferta()">Gerar Oferta Completa</button>
@@ -179,31 +181,31 @@
                 </select>
             </div>
             <button class="action-btn" onclick="gerarCobranca()">Gerar Mensagem de Cobrança</button>
-            <textarea id="resCobranca" readonly></textarea>
+            <textarea id="resCobranca" style="height: 160px;" readonly></textarea>
             <button class="action-btn btn-copy" onclick="copy('resCobranca')">📋 Copiar Texto</button>
             <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resCobranca')">📲 Enviar no WhatsApp</button>
         </div>
 
         <div id="secaoPix" class="tab-content">
-            <div class="input-group"><label>Sua Chave Pix:</label><input type="text" id="cPix" placeholder="Chave Pix"></div>
-            <div class="input-group"><label>Nome do Titular:</label><input type="text" id="nPix" placeholder="Nome"></div>
-            <button class="action-btn" onclick="gerarPix()">Gerar Dados Pix</button>
-            <textarea id="resPix" readonly></textarea>
+            <div class="input-group"><label>Sua Chave Pix:</label><input type="text" id="cPix" placeholder="E-mail, CPF ou Celular"></div>
+            <div class="input-group"><label>Nome do Titular:</label><input type="text" id="nPix" placeholder="Nome do Beneficiário"></div>
+            <button class="action-btn" onclick="gerarPix()">Gerar Dados de Pagamento</button>
+            <textarea id="resPix" style="height: 160px;" readonly></textarea>
             <button class="action-btn btn-copy" onclick="copy('resPix')">📋 Copiar Texto</button>
             <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resPix')">📲 Enviar no WhatsApp</button>
         </div>
 
         <div id="secaoFun" class="tab-content">
-            <div class="input-group"><label>Preço:</label><input type="text" id="pFun" value="R$ 25,00"></div>
-            <button class="action-btn" onclick="gerarTextoDivertido()">🎲 Sortear Texto</button>
-            <textarea id="resFun" readonly></textarea>
-            <button class="action-btn btn-copy" onclick="copy('resFun')">📋 Copiar Texto</button>
+            <div class="input-group"><label>Preço para o texto:</label><input type="text" id="pFun" value="R$ 25,00"></div>
+            <button class="action-btn" onclick="gerarTextoDivertido()">🎲 Sortear Texto Divertido</button>
+            <textarea id="resFun" style="height: 180px;" readonly></textarea>
+            <button class="action-btn btn-copy" onclick="copy('resFun')">📋 Copiar Texto Divertido</button>
             <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resFun')">📲 Enviar no WhatsApp</button>
         </div>
 
         <div id="secaoNovas" class="tab-content">
             <div class="input-group">
-                <label>Modelo:</label>
+                <label>Selecione o Modelo:</label>
                 <select id="tipoNovas">
                     <option value="maes">🎁 Promoção Mês das Mães</option>
                     <option value="indicacao">👥 Indicação Premiada</option>
@@ -211,18 +213,18 @@
                 </select>
             </div>
             <button class="action-btn" onclick="gerarNovasMensagens()">Gerar Mensagem</button>
-            <textarea id="resNovas" readonly></textarea>
+            <textarea id="resNovas" style="height: 180px;" readonly></textarea>
             <button class="action-btn btn-copy" onclick="copy('resNovas')">📋 Copiar Texto</button>
             <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resNovas')">📲 Enviar no WhatsApp</button>
         </div>
 
         <div id="secaoJogos" class="tab-content">
             <div class="input-group">
-                <label>X-RapidAPI-Key:</label>
-                <input type="text" id="apiKey" value="2849cf89e2msh0c69a94f976b2c9p1afe0ajsn36a585521294">
+                <label>Sua Chave da API (X-RapidAPI-Key):</label>
+                <input type="text" id="apiKey" placeholder="Cole sua chave aqui" value="2849cf89e2msh0c69a94f976b2c9p1afe0ajsn36a585521294">
             </div>
             <button class="action-btn" onclick="buscarJogosDoDia()">⚽ Buscar Jogos de Hoje</button>
-            <textarea id="resJogos" readonly></textarea>
+            <textarea id="resJogos" style="height: 200px;" placeholder="Os jogos aparecerão aqui..." readonly></textarea>
             <button class="action-btn btn-copy" onclick="copy('resJogos')">📋 Copiar Jogos</button>
             <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resJogos')">📲 Enviar no WhatsApp</button>
         </div>
@@ -233,15 +235,22 @@
     <div class="footer">Direitos reservados CONNECTA PRO / WebertMaster</div>
 
     <script>
+        // LÓGICA DE LOGIN
         function tryLogin() {
             const u = document.getElementById('userInput').value;
             const p = document.getElementById('passInput').value;
+            const error = document.getElementById('error');
+
             if(u === "admin" && p === "1234") {
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
                 gerarOferta();
+                gerarCobranca();
+                gerarPix();
+                gerarTextoDivertido();
+                gerarNovasMensagens();
             } else {
-                document.getElementById('error').style.display = 'block';
+                error.style.display = 'block';
             }
         }
 
@@ -256,15 +265,20 @@
             const t = document.getElementById(id); 
             t.select(); 
             document.execCommand('copy');
-            alert('Texto copiado!');
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = originalText; }, 1500);
         }
 
+        // FUNÇÃO PARA ENVIAR PARA O WHATSAPP
         function enviarWhatsApp(id) {
             const texto = document.getElementById(id).value;
             const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
             window.open(url, '_blank');
         }
 
+        // GERADORES
         function gerarOferta() {
             const v = document.getElementById('vOferta').value;
             document.getElementById('resOferta').value = `🍀LIBERADO + DE 100 MIL CONTEÚDOS🍀\n\n✔️CANAIS ✔️NOVELAS\n✔️FILMES  ✔️SÉRIES\n♾♾♾♾♾♾♾♾♾♾\nGRADE COM GRANDES VARIEDADES:\n\n✅ 🎬FAZENDA 2023\n✅ ⚽️ FOX SPORTS\n✅ 🏟 PREMIERE\n✅ ⚽️ CONMEBOL LIBERTADORES \n✅ 💪 UFC\n✅ 🎭 HBO\n✅ 🎬 TELECINE\n✅ 📺 ABERTOS\n✅ 👶 INFANTIS\n✅ 🍿 FILMES E SÉRIES\n✅ 🏀 ESPORTES\n✅ 🇵🇹 INTERNACIONAIS\n✅ 📽 DOCUMENTÁRIOS\n✅ 📺 24HORAS\n✅ 🕍 RELIGIOSOS\n✅ 👩 NOVELAS\n✅ 🎤 NOTÍCIAS\n✅ 🔞 ADULTOS ⚠️ (OPCIONAL) ⚠️\n\nFUNCIONA EM:\n📌 SMART TV\n📌 TV BOX\n📌 TABLETS\n📌 NOTEBOOKS/MAC\n📌 COMPUTADOR\n📌 CELULAR (IOS E ANDROID)\n\nAproveita tudo isso por apenas R$ ${v}/mês!`;
@@ -274,88 +288,98 @@
             const n = document.getElementById('nCli').value || "Cliente";
             const t = document.getElementById('tCobranca').value;
             let txt = "";
+
             if (t === "obrigado") {
-                txt = `🎉 ACESSO RENOVADO! 🎉\n\nOlá, ${n}!\nSeu pagamento foi confirmado. ✅\nMuito obrigado pela confiança! 🍿📺`;
+                txt = `🎉 ACESSO RENOVADO COM SUCESSO! 🎉\n\nOlá, ${n}!\n\nSeu pagamento foi confirmado e seu acesso já está renovado por mais 30 dias. ✅\n\nMuito obrigado pela confiança e preferência. Continue aproveitando o melhor do entretenimento!\n\nBom divertimento! 🍿📺`;
             } else if (t === "expirou") {
-                txt = `⚠️ ACESSO EXPIROU! ⚠️\n\nOlá, ${n}!\nSeu plano venceu e o sinal foi interrompido. 🚫📺\nRenove agora para voltar a curtir! 🚀`;
+                txt = `⚠️ SEU ACESSO EXPIROU! ⚠️\n\nOlá, ${n}!\n\nInformamos que seu plano venceu e o sinal foi interrompido automaticamente pelo sistema. 🚫📺\n\nPara voltar a curtir todos os canais, filmes e séries, basta realizar a renovação.\n\nEstamos aguardando você para liberar seu sinal agora mesmo! 🚀`;
             } else {
                 const msg = t === "1" ? "vence AMANHÃ!" : "vence HOJE!";
-                txt = `🔔 VENCIMENTO 🔔\n\nOlá, ${n}!\nLembrando que seu acesso ${msg} 🗓️\nPodemos renovar? 🍿📺`;
+                txt = `🔔 AVISO DE VENCIMENTO 🔔\n\nOlá, ${n}! Tudo bem?\n\nPassando para lembrar que o seu acesso ${msg} 🗓️\n\nNão deixe sua programação favorita pausar. Podemos renovar?\n\nQualquer dúvida, estamos à disposição! 🍿📺`;
             }
             document.getElementById('resCobranca').value = txt;
         }
 
         function gerarPix() {
-            const c = document.getElementById('cPix').value || "Chave Pix";
-            const n = document.getElementById('nPix').value || "Nome";
-            document.getElementById('resPix').value = `💳 PAGAMENTO PIX\n\n👤 Titular: ${n}\n🔑 Chave Pix: ${c}\n\n👉 Envie o comprovante para ativação imediata! ✅`;
+            const c = document.getElementById('cPix').value || "[CHAVE]";
+            const n = document.getElementById('nPix').value || "[NOME]";
+            document.getElementById('resPix').value = `💳 DADOS PARA PAGAMENTO PIX\n\n👤 Titular: ${n}\n🔑 Chave Pix: ${c}\n\n👉 Após realizar o pagamento, envie o comprovante aqui para a ativação imediata do seu sinal! ✅`;
         }
 
         function gerarTextoDivertido() {
             const preco = document.getElementById('pFun').value;
-            const msgs = [
-                `PARE TUDO! ✋🛑\nAinda paga caro em streaming? 🤡 Por apenas ${preco} você tem TUDO! 🍿📺`,
-                `O VAR analisou e confirmou: ✅\nMelhor oferta de hoje! Todos os canais por ${preco}. ⚽🔥`
+            const mensagens = [
+                `PARE TUDO! ✋🛑\nVocê ainda paga caro em streaming? 🤡 Por apenas ${preco} você tem TUDO o que os outros têm. 🤣\n✅ Canais, Filmes e Séries. Bora testar? 🍿📺`,
+                `VAMOS SER SINCEROS? 🤔\nVocê só quer chegar em casa e assistir seu jogo em paz. ⚽\nPrometo a MELHOR LISTA por apenas ${preco}. Chama aqui! 👇`,
+                `Sabe o que custa ${preco}? 🤔\nUm lanche ou... UM MÊS INTEIRO de cinema! 🍔❌ 🎬✅\nA escolha é óbvia, né? Me chama!`,
+                `O VAR analisou e confirmou: ✅\nEssa é a melhor oferta de hoje! Todos os canais por apenas ${preco}. ⚽🔥`,
+                `Cansado de "links duvidosos" que travam? 🏴‍☠️❌\nTenha qualidade profissional e zero estresse por apenas ${preco}. ✨`,
+                `Status: Com preguiça de sair, mas com vontade de ver filme. 😴🎬\nPor ${preco} eu tenho o cinema no meu sofá. Quer também?`,
+                `Sua TV é Smart mas você só usa o YouTube? 🤡\nLiberte todos os canais e filmes por ${preco}. Transforme sua sala em um cinema! 🍿`,
+                `Se somar todos os streamings hoje, dá um aluguel! 💸\nAqui você paga ${preco} e tem TODOS em um só lugar. 🧠🚀`,
+                `Diz o ditado: "Quem avisa amigo é". 📢\nTem muito filme bom saindo e você vai ficar de fora? Por ${preco} você assiste tudo! 🚀`,
+                `VOCÊ VIU ISSO? 😱\nO preço dos streamings subiu de novo... Mas aqui continua ${preco}! 🤫✨ Vem ver! 🍿`
             ];
-            document.getElementById('resFun').value = msgs[Math.floor(Math.random() * msgs.length)];
+            const randomMsg = mensagens[Math.floor(Math.random() * mensagens.length)];
+            document.getElementById('resFun').value = randomMsg;
         }
 
         function gerarNovasMensagens() {
             const tipo = document.getElementById('tipoNovas').value;
             let txt = "";
-            if (tipo === 'maes') txt = `🎁 MÊS DAS MÃES! 💖\nSua mãe merece o melhor do entretenimento! 🍿`;
-            else if (tipo === 'indicacao') txt = `👥 INDIQUE E GANHE! 🚀\nIndique um amigo e ganhe +30 DIAS grátis! 💸✨`;
-            else if (tipo === 'suporte') txt = `🛠️ SUPORTE RÁPIDO\nTravando? Desligue a TV e o Roteador da tomada por 30 segundos! 📺`;
+            if (tipo === 'maes') {
+                txt = `🎁 MÊS DAS MÃES: PRESENTE QUE FICA! 💖\n\nSua mãe merece o melhor do entretenimento!\n✔️ Todos os canais e filmes.\n🚀 Qualidade garantida.\n\nGaranta o presente dela! 🍿`;
+            } else if (tipo === 'indicacao') {
+                txt = `👥 INDIQUE E GANHE! 🚀\n\nPara cada amigo que indicar e assinar, você ganha +30 DIAS grátis no seu plano!\n\nQuanto mais indicar, mais assiste sem pagar! 💸✨`;
+            } else if (tipo === 'suporte') {
+                txt = `🛠️ SUPORTE RÁPIDO\n\nEstá travando? Tente:\n1️⃣ Desligue TV e Roteador da tomada.\n2️⃣ Aguarde 30 segundos e ligue.\n3️⃣ Limpe o cache do app.\n\nIsso resolve 90% casos! 📺`;
+            }
             document.getElementById('resNovas').value = txt;
         }
 
         async function buscarJogosDoDia() {
-    const apiKey = document.getElementById('apiKey').value;
-    const resArea = document.getElementById('resJogos');
+            const apiKey = document.getElementById('apiKey').value;
+            const resArea = document.getElementById('resJogos');
 
-    if (!apiKey) {
-        resArea.value = "⚠️ Por favor, insira a sua X-RapidAPI-Key.";
-        return;
-    }
-
-    resArea.value = "Buscando jogos de hoje, aguarde...";
-
-    // ESSE AJUSTE PEGA A DATA DE HOJE AUTOMATICAMENTE
-    const today = new Date().toISOString().split('T')[0]; 
-    
-    const url = `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${today}`;
-
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
-                'x-rapidapi-key': apiKey
+            if (!apiKey) {
+                resArea.value = "⚠️ Por favor, insira a sua X-RapidAPI-Key para continuar.";
+                return;
             }
-        });
-        
-        const data = await response.json();
 
-        if (data.response && data.response.length > 0) {
-            // Filtra apenas ligas principais para não ficar um texto gigante
-            const ligasDesejadas = ["Brasileirão Serie A", "Copa Libertadores", "UEFA Champions League", "Premier League"];
-            
-            let txt = `⚽ PROGRAMAÇÃO DE JOGOS - HOJE (${today.split('-').reverse().join('/')})\n\n`;
-            
-            data.response.slice(0, 15).forEach(item => { // Limita aos 15 primeiros jogos
-                txt += `🏆 ${item.league.name}\n`;
-                txt += `⚔️ ${item.teams.home.name} x ${item.teams.away.name}\n`;
-                txt += `⏰ ${new Date(item.fixture.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}\n`;
-                txt += `--------------------\n`;
-            });
-            
-            txt += `\n📺 Assista todos esses jogos aqui na Connecta Pro!`;
-            resArea.value = txt;
-        } else {
-            resArea.value = "⚠️ A API não retornou jogos para hoje. Verifique se o plano Free está ativo no site da RapidAPI.";
+            resArea.value = "Buscando jogos, por favor aguarde...";
+
+            const today = new Date().toISOString().split('T')[0]; // Pega a data de hoje
+            const url = `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${today}`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
+                        'x-rapidapi-key': apiKey
+                    }
+                });
+                
+                const data = await response.json();
+
+                if (data.response && data.response.length > 0) {
+                    let txt = `⚽ JOGOS DE HOJE (${today.split('-').reverse().join('/')})\n\n`;
+                    data.response.slice(0, 15).forEach(item => {
+                        txt += `🏆 ${item.league.name}\n`;
+                        txt += `⚔️ ${item.teams.home.name} x ${item.teams.away.name}\n`;
+                        txt += `⏰ ${new Date(item.fixture.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}\n`;
+                        txt += `--------------------\n`;
+                    });
+                    resArea.value = txt;
+                } else {
+                    resArea.value = "⚠️ Nenhum jogo encontrado para hoje nesta API. Verifique se o seu plano no RapidAPI está ativo e com requisições disponíveis.";
+                }
+
+            } catch (error) {
+                resArea.value = "Erro ao buscar os jogos. Verifique sua chave API ou conexão com a internet.";
+                console.error("Erro:", error);
+            }
         }
-
-    } catch (error) {
-        resArea.value = "Erro na conexão. Verifique sua chave ou internet.";
-    }
-}
+    </script>
+</body>
+</html>
