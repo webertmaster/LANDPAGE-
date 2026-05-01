@@ -1,1042 +1,365 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEBFLIX - IPTV Premium | +1.500 Canais em Full HD</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Connecta Pro - Acesso Restrito</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg-color: #121214;
+            --card-bg: #1a1a1e;
+            --text-color: #e1e1e6;
+            --accent-color: #00b37e;
+            --accent-hover: #00875f;
+            --border-color: #29292e;
+            --error-color: #f75a68;
         }
 
-        :root {
-            --netflix-red: #E50914;
-            --netflix-red-hover: #b20710;
-            --netflix-black: #000000;
-            --netflix-dark: #141414;
-            --netflix-card: #1a1a1a;
-            --netflix-border: #333333;
-            --text: #ffffff;
-            --text-muted: #b3b3b3;
-            --text-dark: #808080;
-            --gold: #ffc107;
-            --whatsapp: #25d366;
-            --whatsapp-hover: #1ebe57;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background: var(--netflix-black);
-            color: var(--text);
-            line-height: 1.5;
-            overflow-x: hidden;
-            letter-spacing: 0.02em;
-        }
-
-        /* Loader estilo Netflix */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.6s, visibility 0.6s;
-        }
-        .loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-        .loader-netflix {
-            position: relative;
-            width: 70px;
-            height: 70px;
-        }
-        .loader-netflix span {
-            position: absolute;
-            width: 12px;
-            height: 100%;
-            background: var(--netflix-red);
-            border-radius: 2px;
-            animation: netflix-load 1.2s infinite ease-in-out;
-        }
-        .loader-netflix span:nth-child(1) { left: 0; animation-delay: 0s; }
-        .loader-netflix span:nth-child(2) { left: 22px; animation-delay: 0.2s; }
-        .loader-netflix span:nth-child(3) { left: 44px; animation-delay: 0.4s; }
-        @keyframes netflix-load {
-            0%, 100% { transform: scaleY(0.4); opacity: 0.3; }
-            50% { transform: scaleY(1); opacity: 1; }
-        }
-
-        /* Header no estilo Netflix */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 60%, transparent 100%);
-            z-index: 1000;
-            padding: 1.2rem 4%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.4s;
-        }
-        header.scrolled {
-            background: rgba(0, 0, 0, 0.97);
-            padding: 0.7rem 4%;
-        }
-        .logo {
-            font-size: 2rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-        .logo span:first-child { color: #fff; }
-        .logo span:last-child { color: var(--netflix-red); }
-        .logo i { display: none; }
-
-        .header-cta {
-            background: var(--netflix-red);
-            color: #fff;
-            padding: 10px 24px;
-            border-radius: 4px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-            letter-spacing: 0.5px;
-        }
-        .header-cta:hover {
-            background: var(--netflix-red-hover);
-            transform: scale(1.05);
-        }
-
-        /* Hero Section */
-        .hero {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 140px 5% 80px;
-            gap: 50px;
-            position: relative;
-            background: radial-gradient(ellipse at center, rgba(229,9,20,0.08) 0%, transparent 70%),
-                        linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(255,255,255,0.015) 2px,
-                    rgba(255,255,255,0.015) 4px
-                );
-            pointer-events: none;
-        }
-        .hero-content { max-width: 600px; z-index: 1; }
-        .hero-badge {
-            background: rgba(229, 9, 20, 0.15);
-            color: var(--netflix-red);
-            padding: 6px 18px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-bottom: 25px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border: 1px solid rgba(229,9,20,0.2);
-        }
-        .hero h1 {
-            font-size: 3.8rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            line-height: 1.15;
-            letter-spacing: -1px;
-        }
-        .gradient-text { color: var(--netflix-red); }
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 35px;
-            font-weight: 400;
-        }
-        .hero p strong { color: #fff; font-weight: 700; }
-        .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
-
-        .btn-primary {
-            padding: 14px 32px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.2s;
-            background: var(--netflix-red);
-            color: #fff;
-            letter-spacing: 0.5px;
-        }
-        .btn-primary:hover {
-            background: var(--netflix-red-hover);
-            transform: scale(1.05);
-        }
-        .btn-whatsapp {
-            background: var(--whatsapp);
-            color: #fff;
-            padding: 14px 32px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.2s;
-            letter-spacing: 0.5px;
-        }
-        .btn-whatsapp:hover {
-            background: var(--whatsapp-hover);
-            transform: scale(1.05);
+            padding: 20px;
         }
 
-        /* TV Screen */
-        .tv-container { position: relative; width: 440px; height: 340px; }
-        .tv-screen {
-            width: 420px;
-            height: 250px;
-            background: #0a0a0a;
-            border-radius: 6px;
-            border: 3px solid #2a2a2a;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 0 80px rgba(229,9,20,0.08), 0 20px 40px rgba(0,0,0,0.5);
-        }
-        .channel-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1px;
-            padding: 1px;
-            position: absolute;
-            inset: 0;
-            background: #0a0a0a;
-        }
-        .channel-thumb {
-            background: #111111;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            position: relative;
-            transition: background 0.3s;
-            cursor: pointer;
-        }
-        .channel-thumb:hover { background: #1a1a1a; }
-        .channel-thumb i { font-size: 1.6rem; }
-        .channel-thumb span {
-            font-size: 0.55rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .live-dot {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 7px;
-            height: 7px;
-            background: var(--netflix-red);
-            border-radius: 50%;
-            animation: pulse 1.8s infinite;
-            box-shadow: 0 0 6px rgba(229,9,20,0.6);
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(1.5); }
-        }
-        .tv-stand { width: 100px; height: 12px; background: #2a2a2a; margin: 0 auto; border-radius: 0 0 4px 4px; }
-        .tv-base { width: 180px; height: 8px; background: #222; margin: 4px auto 0; border-radius: 2px; }
-
-        /* Cores dos ícones */
-        .fa-futbol, .fa-football-ball { color: #4CAF50; }
-        .fa-trophy { color: #FF9800; }
-        .fa-crown { color: #FFC107; }
-        .fa-star { color: #CE93D8; }
-        .fa-film { color: #E91E63; }
-        .fa-video { color: #64B5F6; }
-        .fa-play-circle { color: #E50914; }
-        .fa-magic { color: #42A5F5; }
-        .fa-amazon { color: #FF9900; }
-        .fa-tv { color: #66BB6A; }
-        .fa-music { color: #FF7043; }
-        .fa-bolt { color: #FFD54F; }
-
-        /* Trust Strip */
-        .trust-strip {
-            background: #0a0a0a;
-            border-top: 1px solid #1a1a1a;
-            border-bottom: 1px solid #1a1a1a;
-            padding: 22px 5%;
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            flex-wrap: wrap;
-        }
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-        .trust-item i { font-size: 1.3rem; color: var(--netflix-red); }
-
-        /* Features */
-        .features { padding: 100px 5% 80px; background: #000000; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-size: 2.8rem; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; }
-        .section-title p { color: var(--text-muted); font-size: 1.1rem; font-weight: 400; }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            max-width: 1150px;
-            margin: 0 auto;
-        }
-        .feature-card {
-            background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
-            padding: 40px 28px;
-            border-radius: 6px;
-            text-align: center;
-            transition: all 0.3s;
-            border: 1px solid #1f1f1f;
-            cursor: default;
-        }
-        .feature-card:hover {
-            transform: translateY(-6px);
-            border-color: #333;
-            background: linear-gradient(180deg, #1f1f1f 0%, #141414 100%);
-        }
-        .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: rgba(229, 9, 20, 0.08);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-            color: var(--netflix-red);
-        }
-        .feature-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.3px; }
-        .feature-card p { color: var(--text-muted); font-size: 0.9rem; font-weight: 400; }
-
-        /* Channels Showcase */
-        .channels-showcase {
-            padding: 80px 5%;
-            background: #0a0a0a;
-            border-top: 1px solid #1a1a1a;
-            border-bottom: 1px solid #1a1a1a;
-        }
-        .channel-logos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 16px;
-            max-width: 1050px;
-            margin: 40px auto 0;
-        }
-        .channel-logo-card {
-            background: #111111;
-            border-radius: 6px;
-            padding: 22px 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-        .channel-logo-card:hover {
-            border-color: #333;
-            background: #181818;
-            transform: scale(1.05);
-        }
-        .channel-logo-card i { font-size: 2.5rem; }
-        .channel-logo-card span {
-            font-weight: 700;
-            font-size: 0.65rem;
-            color: var(--text-dark);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* Pricing */
-        .pricing { padding: 100px 5%; background: #000000; }
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            max-width: 1050px;
-            margin: 0 auto;
-        }
-        .plan-card {
-            background: #0f0f0f;
-            border-radius: 6px;
-            padding: 40px 30px;
-            text-align: center;
-            position: relative;
-            transition: all 0.3s;
-            border: 1px solid #1f1f1f;
-        }
-        .plan-card:hover { border-color: #333; transform: translateY(-4px); }
-        .plan-card.destaque {
-            border: 2px solid var(--netflix-red);
-            background: #141414;
-            position: relative;
-            z-index: 1;
-        }
-        .plan-card.destaque::before {
-            content: 'MAIS POPULAR';
-            position: absolute;
-            top: -13px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--netflix-red);
-            padding: 5px 22px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            color: #fff;
-        }
-        .plan-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.5px; }
-        .plan-price { font-size: 3rem; font-weight: 900; color: #ffffff; margin-bottom: 5px; }
-        .plan-price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
-        .plan-card.destaque .plan-price { color: var(--netflix-red); }
-        .plan-features { list-style: none; margin: 28px 0; text-align: left; padding: 0; }
-        .plan-features li {
-            padding: 9px 0;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            border-bottom: 1px solid #1a1a1a;
-        }
-        .plan-features li:last-child { border-bottom: none; }
-        .plan-features li i { color: var(--netflix-red); margin-right: 10px; font-size: 0.85rem; }
-        .plan-btn {
-            display: block;
-            background: var(--netflix-red);
-            color: #fff;
-            padding: 14px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        .plan-btn:hover { background: var(--netflix-red-hover); transform: scale(1.03); }
-        .plan-card.destaque .plan-btn { font-size: 1rem; }
-
-        /* ============================================ */
-        /* TESTIMONIALS COM IMAGENS - NOVO DESIGN */
-        /* ============================================ */
-        .testimonials {
-            padding: 80px 5%;
-            background: #0a0a0a;
-            border-top: 1px solid #1a1a1a;
-            border-bottom: 1px solid #1a1a1a;
-        }
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .testimonial-card {
-            background: #111111;
-            padding: 30px;
-            border-radius: 6px;
-            border: 1px solid #1a1a1a;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-        .testimonial-card:hover {
-            border-color: #333;
-            transform: translateY(-4px);
-        }
-        .testimonial-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        /* Container da imagem do cliente */
-        .testimonial-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 2px solid #2a2a2a;
-            transition: border-color 0.3s;
-        }
-        .testimonial-card:hover .testimonial-avatar {
-            border-color: var(--netflix-red);
-        }
-        .testimonial-avatar img {
+        /* --- TELA DE LOGIN --- */
+        #loginScreen {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+            max-width: 400px;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            text-align: center;
         }
-        /* Avatar fallback (caso a imagem não carregue) */
-        .testimonial-avatar-fallback {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 2px solid #2a2a2a;
-            background: #1a1a1a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--netflix-red);
-            transition: border-color 0.3s;
-        }
-        .testimonial-card:hover .testimonial-avatar-fallback {
-            border-color: var(--netflix-red);
-        }
-        .testimonial-info {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-        .testimonial-name {
-            font-weight: 700;
-            font-size: 1rem;
-            color: #fff;
-        }
-        .testimonial-role {
-            font-size: 0.8rem;
-            color: var(--text-dark);
-        }
-        .testimonial-stars {
-            color: var(--gold);
+
+        #loginScreen h2 { margin-bottom: 25px; color: #fff; }
+
+        .error-msg {
+            color: var(--error-color);
             font-size: 0.85rem;
             margin-bottom: 15px;
-        }
-        .testimonial-text {
-            color: var(--text-muted);
-            font-style: italic;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            flex-grow: 1;
-        }
-        .testimonial-verified {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #1a1a1a;
-            font-size: 0.75rem;
-            color: #4CAF50;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-        .testimonial-verified i {
-            font-size: 0.85rem;
-        }
-
-        /* FAQ */
-        .faq { padding: 100px 5%; background: #000000; }
-        .faq-list { max-width: 750px; margin: 0 auto; }
-        .faq-item {
-            background: #0f0f0f;
-            border-radius: 4px;
-            margin-bottom: 12px;
-            overflow: hidden;
-            border: 1px solid #1a1a1a;
-            transition: border-color 0.3s;
-        }
-        .faq-item:hover { border-color: #2a2a2a; }
-        .faq-question {
-            padding: 22px 28px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            font-size: 1rem;
-            letter-spacing: 0.3px;
-            transition: color 0.2s;
-        }
-        .faq-question:hover { color: var(--netflix-red); }
-        .faq-question i { font-size: 0.8rem; transition: transform 0.3s; color: var(--text-muted); }
-        .faq-answer {
-            padding: 0 28px 22px;
-            color: var(--text-muted);
             display: none;
-            font-size: 0.95rem;
-            line-height: 1.7;
         }
-        .faq-item.active .faq-answer { display: block; }
-        .faq-item.active .faq-question i { transform: rotate(180deg); }
-        .faq-item.active { border-color: #333; }
 
-        /* CTA Final */
-        .cta-final {
-            padding: 100px 5%;
-            text-align: center;
-            background: radial-gradient(ellipse at center, rgba(229,9,20,0.1) 0%, transparent 70%), #0a0a0a;
-            border-top: 1px solid #1a1a1a;
+        /* --- CONTAINER PRINCIPAL (ESCONDIDO INICIALMENTE) --- */
+        #mainContent {
+            display: none; /* Esconde a ferramenta até o login */
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            margin-top: 20px;
         }
-        .cta-final h2 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 900; letter-spacing: -0.5px; }
-        .cta-final p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 35px; }
-        .cta-final .btn-whatsapp { font-size: 1.1rem; padding: 18px 45px; border-radius: 4px; }
 
-        /* Footer */
-        footer {
-            background: #000000;
-            padding: 40px 5%;
-            text-align: center;
-            border-top: 1px solid #1a1a1a;
+        h1 { font-size: 1.4rem; margin-bottom: 20px; color: #fff; text-align: center; }
+
+        .tabs { display: flex; gap: 5px; margin-bottom: 20px; flex-wrap: wrap; }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 3px;
+            background-color: #29292e;
+            color: #a8a8b3;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.70rem;
+            font-weight: bold;
+            cursor: pointer;
+            min-width: 70px;
+            transition: 0.2s;
         }
-        footer p { color: var(--text-dark); font-size: 0.8rem; letter-spacing: 0.5px; }
 
-        /* Float WhatsApp */
-        .float-whatsapp {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: var(--whatsapp);
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.7rem;
+        .tab-btn.active { background-color: var(--accent-color); color: #fff; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .input-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; margin-bottom: 5px; color: #a8a8b3; font-size: 0.9rem; }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #09090a;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
             color: #fff;
-            text-decoration: none;
-            z-index: 999;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
-            animation: float 3s infinite;
-            transition: transform 0.2s;
-        }
-        .float-whatsapp:hover { transform: scale(1.1); animation: none; }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            outline: none;
         }
 
-        /* Responsivo */
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding: 120px 5% 60px;
-                gap: 40px;
-            }
-            .hero h1 { font-size: 2.2rem; }
-            .hero p { font-size: 1rem; }
-            .hero-buttons { justify-content: center; }
-            .tv-container { width: 280px; height: 230px; margin-top: 10px; }
-            .tv-screen { width: 260px; height: 170px; }
-            .channel-thumb i { font-size: 1.1rem; }
-            .channel-thumb span { font-size: 0.5rem; }
-            .section-title h2 { font-size: 2rem; }
-            .trust-strip { gap: 25px; }
-            .trust-item { font-size: 0.8rem; }
-            .testimonials-grid { grid-template-columns: 1fr; }
-            .plan-card.destaque { transform: none; }
-            .channel-logos-grid { grid-template-columns: repeat(3, 1fr); }
-            .features-grid { grid-template-columns: 1fr; }
+        textarea { height: 260px; margin-top: 10px; font-family: 'Segoe UI', sans-serif; font-size: 0.85rem; line-height: 1.4; }
+
+        .action-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
         }
+
+        .btn-copy { background-color: #29292e; margin-top: 5px; }
+
+        .logout-link {
+            display: block;
+            margin-top: 15px;
+            color: #7c7c8a;
+            font-size: 0.8rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .footer { margin-top: 30px; font-size: 0.8rem; color: #7c7c8a; text-align: center; }
     </style>
 </head>
 <body>
 
-    <!-- Loader -->
-    <div class="loader" id="loader">
-        <div class="loader-netflix">
-            <span></span>
-            <span></span>
-            <span></span>
+    <div id="loginScreen">
+        <h2>Connecta Pro</h2>
+        <div id="error" class="error-msg">Usuário ou senha incorretos!</div>
+        <div class="input-group">
+            <label>Usuário</label>
+            <input type="text" id="userInput" placeholder="Digite seu usuário">
         </div>
+        <div class="input-group">
+            <label>Senha</label>
+            <input type="password" id="passInput" placeholder="Digite sua senha">
+        </div>
+        <button class="action-btn" onclick="tryLogin()">Entrar no Sistema</button>
     </div>
 
-    <!-- Float WhatsApp -->
-    <a href="https://wa.me/5584987974972" target="_blank" class="float-whatsapp" title="Fale conosco no WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <div id="mainContent">
+        <h1>Gerador Connecta Pro</h1>
 
-    <!-- Header -->
-    <header id="header">
-        <div class="logo">
-            <span>WEB</span><span>FLIX</span>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('ofertas')">Ofertas</button>
+            <button class="tab-btn" onclick="switchTab('cobranca')">Cobrança</button>
+            <button class="tab-btn" onclick="switchTab('pix')">Pix</button>
+            <button class="tab-btn" onclick="switchTab('fun')">Divertidos</button>
+            <button class="tab-btn" onclick="switchTab('novas')">Novas</button>
+            <button class="tab-btn" onclick="switchTab('jogos')">Jogos API</button>
         </div>
-        <a href="https://wa.me/5584987974972" target="_blank" class="header-cta">
-            <i class="fab fa-whatsapp"></i> Testar Grátis
-        </a>
-    </header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">Oferta Especial Hoje</div>
-            <h1>O melhor <span class="gradient-text">IPTV</span> você encontra aqui</h1>
-            <p>Mais de <strong>1.500 canais</strong> em Full HD e 4K. Filmes, séries e futebol ao vivo por um preço que cabe no seu bolso.</p>
-            <div class="hero-buttons">
-                <a href="#planos" class="btn-primary"><i class="fas fa-crown"></i> Ver Planos</a>
-                <a href="https://wa.me/5584987974972" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Teste Grátis</a>
+        <div id="secaoOfertas" class="tab-content active">
+            <div class="input-group"><label>Valor do Plano (R$):</label><input type="text" id="vOferta" value="25,00"></div>
+            <button class="action-btn" onclick="gerarOferta()">Gerar Oferta Completa</button>
+            <textarea id="resOferta" readonly></textarea>
+            <button class="action-btn btn-copy" onclick="copy('resOferta')">📋 Copiar Texto</button>
+        </div>
+
+        <div id="secaoCobranca" class="tab-content">
+            <div class="input-group"><label>Nome do Cliente:</label><input type="text" id="nCli" placeholder="Ex: João"></div>
+            <div class="input-group">
+                <label>Tipo de Mensagem:</label>
+                <select id="tCobranca">
+                    <option value="1">Aviso: Vence Amanhã</option>
+                    <option value="0">Aviso: Vence Hoje</option>
+                    <option value="expirou">❌ Aviso: Expirou</option>
+                    <option value="obrigado">🎉 Agradecimento (Renovado)</option>
+                </select>
             </div>
+            <button class="action-btn" onclick="gerarCobranca()">Gerar Mensagem de Cobrança</button>
+            <textarea id="resCobranca" style="height: 180px;" readonly></textarea>
+            <button class="action-btn btn-copy" onclick="copy('resCobranca')">📋 Copiar Texto</button>
         </div>
-        <div class="hero-visual">
-            <div class="tv-container">
-                <div class="tv-screen">
-                    <div class="channel-grid">
-                        <div class="channel-thumb"><i class="fas fa-futbol"></i><span>SPORTV</span><div class="live-dot"></div></div>
-                        <div class="channel-thumb"><i class="fas fa-trophy"></i><span>ESPN</span></div>
-                        <div class="channel-thumb"><i class="fas fa-crown"></i><span>PREMIERE</span><div class="live-dot"></div></div>
-                        <div class="channel-thumb"><i class="fas fa-star"></i><span>PARAMOUNT</span></div>
-                        <div class="channel-thumb"><i class="fas fa-film"></i><span>HBO</span></div>
-                        <div class="channel-thumb"><i class="fas fa-video"></i><span>TELECINE</span></div>
-                        <div class="channel-thumb"><i class="fas fa-play-circle"></i><span>NETFLIX</span></div>
-                        <div class="channel-thumb"><i class="fas fa-magic"></i><span>DISNEY+</span></div>
-                    </div>
-                </div>
-                <div class="tv-stand"></div>
-                <div class="tv-base"></div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Trust Strip -->
-    <div class="trust-strip">
-        <div class="trust-item"><i class="fas fa-shield-alt"></i> Garantia de 24h</div>
-        <div class="trust-item"><i class="fas fa-headset"></i> Suporte 24h</div>
-        <div class="trust-item"><i class="fas fa-bolt"></i> Entrega Imediata</div>
-        <div class="trust-item"><i class="fas fa-lock"></i> Pagamento Seguro</div>
+        <div id="secaoPix" class="tab-content">
+            <div class="input-group"><label>Sua Chave Pix:</label><input type="text" id="cPix" placeholder="E-mail, CPF ou Celular"></div>
+            <div class="input-group"><label>Nome do Titular:</label><input type="text" id="nPix" placeholder="Nome do Beneficiário"></div>
+            <button class="action-btn" onclick="gerarPix()">Gerar Dados de Pagamento</button>
+            <textarea id="resPix" style="height: 180px;" readonly></textarea>
+            <button class="action-btn btn-copy" onclick="copy('resPix')">📋 Copiar Texto</button>
+        </div>
+
+        <div id="secaoFun" class="tab-content">
+            <div class="input-group"><label>Preço para o texto:</label><input type="text" id="pFun" value="R$ 25,00"></div>
+            <button class="action-btn" onclick="gerarTextoDivertido()">🎲 Sortear Texto Divertido</button>
+            <textarea id="resFun" style="height: 200px;" readonly></textarea>
+            <button class="action-btn btn-copy" onclick="copy('resFun')">📋 Copiar Texto Divertido</button>
+        </div>
+
+        <div id="secaoNovas" class="tab-content">
+            <div class="input-group">
+                <label>Selecione o Modelo:</label>
+                <select id="tipoNovas">
+                    <option value="maes">🎁 Promoção Mês das Mães</option>
+                    <option value="indicacao">👥 Indicação Premiada</option>
+                    <option value="suporte">🛠️ Suporte (Reiniciar)</option>
+                </select>
+            </div>
+            <button class="action-btn" onclick="gerarNovasMensagens()">Gerar Mensagem</button>
+            <textarea id="resNovas" style="height: 200px;" readonly></textarea>
+            <button class="action-btn btn-copy" onclick="copy('resNovas')">📋 Copiar Texto</button>
+        </div>
+
+        <div id="secaoJogos" class="tab-content">
+            <div class="input-group">
+                <label>Sua Chave da API (X-RapidAPI-Key):</label>
+                <input type="text" id="apiKey" placeholder="Cole sua chave aqui">
+            </div>
+            <button class="action-btn" onclick="buscarJogosDoDia()">⚽ Buscar Jogos de Hoje</button>
+            <textarea id="resJogos" style="height: 220px;" placeholder="Os jogos aparecerão aqui..." readonly></textarea>
+            <button class="action-btn btn-copy" onclick="copy('resJogos')">📋 Copiar Jogos</button>
+        </div>
+
+        <span class="logout-link" onclick="location.reload()">🔒 Sair do Sistema</span>
     </div>
 
-    <!-- Features -->
-    <section class="features">
-        <div class="section-title">
-            <h2>Por que escolher a WEBFLIX?</h2>
-            <p>Qualidade cinematográfica, estabilidade e o melhor suporte.</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-satellite-dish"></i></div>
-                <h3>+1.500 Canais</h3>
-                <p>Canais nacionais e internacionais com todos os esportes ao vivo.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-film"></i></div>
-                <h3>Filmes e Séries</h3>
-                <p>Catálogo completo com lançamentos atualizados semanalmente.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-futbol"></i></div>
-                <h3>Futebol Ao Vivo</h3>
-                <p>Brasileirão, Premier League, Champions League e muito mais.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-4k"></i></div>
-                <h3>Qualidade 4K HDR</h3>
-                <p>Transmissão em Full HD e 4K com total estabilidade.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
-                <h3>Multi-dispositivos</h3>
-                <p>Assista na TV, celular, tablet, PC ou Fire Stick.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
-                <h3>Anti-Travamento</h3>
-                <p>Servidores premium com tecnologia anti-congelamento.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Channels Showcase -->
-    <section class="channels-showcase">
-        <div class="section-title">
-            <h2>Canais Disponíveis</h2>
-            <p>Uma prévia do que você terá acesso</p>
-        </div>
-        <div class="channel-logos-grid">
-            <div class="channel-logo-card"><i class="fas fa-futbol"></i><span>SPORTV</span></div>
-            <div class="channel-logo-card"><i class="fas fa-trophy"></i><span>ESPN</span></div>
-            <div class="channel-logo-card"><i class="fas fa-crown"></i><span>PREMIERE</span></div>
-            <div class="channel-logo-card"><i class="fas fa-star"></i><span>PARAMOUNT+</span></div>
-            <div class="channel-logo-card"><i class="fas fa-film"></i><span>HBO</span></div>
-            <div class="channel-logo-card"><i class="fas fa-video"></i><span>TELECINE</span></div>
-            <div class="channel-logo-card"><i class="fas fa-play-circle"></i><span>NETFLIX</span></div>
-            <div class="channel-logo-card"><i class="fas fa-magic"></i><span>DISNEY+</span></div>
-            <div class="channel-logo-card"><i class="fab fa-amazon"></i><span>PRIME VIDEO</span></div>
-            <div class="channel-logo-card"><i class="fas fa-tv"></i><span>GLOBOPLAY</span></div>
-            <div class="channel-logo-card"><i class="fas fa-music"></i><span>BAND</span></div>
-            <div class="channel-logo-card"><i class="fas fa-bolt"></i><span>TNT SPORTS</span></div>
-        </div>
-    </section>
-
-    <!-- Planos -->
-    <section class="pricing" id="planos">
-        <div class="section-title">
-            <h2>Planos e Preços</h2>
-            <p>Escolha o plano ideal. Todos com garantia de 1 dia.</p>
-        </div>
-        <div class="pricing-grid">
-            <div class="plan-card">
-                <h3>Plano MENSAL</h3>
-                <div class="plan-price">R$ 29<span>,90</span></div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> +1.500 canais</li>
-                    <li><i class="fas fa-check"></i> Suporte 24/7</li>
-                    <li><i class="fas fa-check"></i> 1 tela simultânea</li>
-                </ul>
-                <a href="https://wa.me/5584987974972?text=Olá! Quero o Plano MENSAL da WEBFLIX" target="_blank" class="plan-btn">Assinar Agora</a>
-            </div>
-            <div class="plan-card destaque">
-                <h3>Plano TRIMESTRAL</h3>
-                <div class="plan-price">R$ 79<span>,90</span></div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> +1.500 canais</li>
-                    <li><i class="fas fa-check"></i> Suporte VIP 24/7</li>
-                    <li><i class="fas fa-check"></i> 1 tela simultânea</li>
-                    <li><i class="fas fa-check"></i> Bônus APP NO CELULAR</li>
-                </ul>
-                <a href="https://wa.me/5584987974972?text=Olá! Quero o Plano TRIMESTRAL da WEBFLIX" target="_blank" class="plan-btn">Assinar Agora</a>
-            </div>
-            <div class="plan-card">
-                <h3>Plano ANUAL</h3>
-                <div class="plan-price">R$ 250<span>,00</span></div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> +1.500canais</li>
-                    <li><i class="fas fa-check"></i> Suporte Prioritário</li>
-                    <li><i class="fas fa-check"></i> 1 tela simultânea</li>
-                </ul>
-                <a href="https://wa.me/5584987974972?text=Olá! Quero o Plano ANUAL da WEBFLIX" target="_blank" class="plan-btn">Assinar Agora</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- DEPOIMENTOS COM IMAGENS -->
-    <!-- ============================================ -->
-    <section class="testimonials">
-        <div class="section-title">
-            <h2>O que nossos clientes dizem</h2>
-            <p>Mais de 200 clientes satisfeitos em todo o Brasil.</p>
-        </div>
-        <div class="testimonials-grid">
-            
-            <!-- Depoimento 1 - Carlos -->
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <!-- 
-                        SUBSTITUA O SRC PELA IMAGEM REAL DO CLIENTE
-                        Ex: src="img/clientes/carlos.jpg"
-                        Ou use uma URL externa:
-                        src="https://i.pravatar.cc/150?img=68"
-                    -->
-                    <div class="testimonial-avatar">
-                        <img 
-                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" 
-                            alt="Foto do cliente Carlos Ribeiro"
-                            loading="lazy"
-                            onerror="this.style.display='none'; this.parentElement.classList.add('testimonial-avatar-fallback'); this.parentElement.innerHTML='CR';"
-                        >
-                    </div>
-                    <div class="testimonial-info">
-                        <span class="testimonial-name">Carlos Ribeiro</span>
-                        <span class="testimonial-role">Cliente há 6 meses</span>
-                    </div>
-                </div>
-                <div class="testimonial-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">
-                    "Melhor IPTV que já testei. Canais em Full HD sem travamentos e o suporte responde na hora pelo WhatsApp. Recomendo demais!"
-                </p>
-                <div class="testimonial-verified">
-                    <i class="fas fa-check-circle"></i> Compra verificada
-                </div>
-            </div>
-
-            <!-- Depoimento 2 - Fernanda -->
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">
-                        <img 
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face" 
-                            alt="Foto da cliente Fernanda Mendes"
-                            loading="lazy"
-                            onerror="this.style.display='none'; this.parentElement.classList.add('testimonial-avatar-fallback'); this.parentElement.innerHTML='FM';"
-                        >
-                    </div>
-                    <div class="testimonial-info">
-                        <span class="testimonial-name">Fernanda Mendes</span>
-                        <span class="testimonial-role">Cliente há 3 meses</span>
-                    </div>
-                </div>
-                <div class="testimonial-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">
-                    "Assisto todos os jogos do meu time sem preocupação. A qualidade 4K é surreal e o preço cabe no bolso. Teste grátis funciona mesmo!"
-                </p>
-                <div class="testimonial-verified">
-                    <i class="fas fa-check-circle"></i> Compra verificada
-                </div>
-            </div>
-
-            <!-- Depoimento 3 - Ricardo -->
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">
-                        <img 
-                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face" 
-                            alt="Foto do cliente Ricardo Almeida"
-                            loading="lazy"
-                            onerror="this.style.display='none'; this.parentElement.classList.add('testimonial-avatar-fallback'); this.parentElement.innerHTML='RA';"
-                        >
-                    </div>
-                    <div class="testimonial-info">
-                        <span class="testimonial-name">Ricardo Almeida</span>
-                        <span class="testimonial-role">Cliente há 1 ano</span>
-                    </div>
-                </div>
-                <div class="testimonial-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">
-                    "Funciona perfeitamente na minha Smart TV, no celular e no computador. O catálogo de filmes é enorme, sempre atualizado. Nota 10!"
-                </p>
-                <div class="testimonial-verified">
-                    <i class="fas fa-check-circle"></i> Compra verificada
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq">
-        <div class="section-title">
-            <h2>Perguntas Frequentes</h2>
-            <p>Tire suas dúvidas sobre o serviço.</p>
-        </div>
-        <div class="faq-list">
-            <div class="faq-item">
-                <div class="faq-question">Como funciona o teste grátis? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-answer">Você solicita o teste pelo WhatsApp, enviamos seu login e senha em até 5 minutos. O teste dura 3h com acesso total a todos os canais e recursos.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Quais dispositivos são compatíveis? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-answer">Smart TVs (LG, Samsung, TCL), Android TV, Fire Stick, celulares (Android/iOS), PC, Mac, Chromecast e TV Box.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Tem garantia? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-answer">Sim, todos os planos têm garantia incondicional de 1 dia. Se não gostar, devolvemos 100% do seu dinheiro.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Como faço para assinar? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-answer">Clique em qualquer botão "Assinar Agora" ou "Testar Grátis" e você será redirecionado ao WhatsApp para finalizar o pedido em poucos minutos.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Final -->
-    <section class="cta-final">
-        <h2>Pronto para transformar sua TV?</h2>
-        <p>Mais de 1.500 canais, filmes, séries e esportes ao vivo. Teste grátis hoje mesmo!</p>
-        <a href="https://wa.me/5584987974972" target="_blank" class="btn-whatsapp">
-            <i class="fab fa-whatsapp"></i> GANHE SEU TESTE GRÁTIS
-        </a>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>WEBFLIX © 2025 — Todos os direitos reservados.</p>
-    </footer>
+    <div class="footer">Direitos reservados CONNECTA PRO / WebertMaster</div>
 
     <script>
-        window.addEventListener('load', function() {
-            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1000);
-        });
+        // LÓGICA DE LOGIN 
+        function tryLogin() {
+            const u = document.getElementById('userInput').value;
+            const p = document.getElementById('passInput').value;
+            const error = document.getElementById('error');
 
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) header.classList.add('scrolled');
-            else header.classList.remove('scrolled');
-        });
+            if(u === "admin" && p === "1234") {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                gerarOferta();
+                gerarCobranca();
+                gerarPix();
+                gerarTextoDivertido();
+                gerarNovasMensagens();
+            } else {
+                error.style.display = 'block';
+            }
+        }
 
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.querySelector('.faq-question').addEventListener('click', () => {
-                document.querySelectorAll('.faq-item').forEach(otherItem => {
-                    if (otherItem !== item) otherItem.classList.remove('active');
+        function switchTab(t) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('secao' + t.charAt(0).toUpperCase() + t.slice(1)).classList.add('active');
+        }
+
+        function copy(id) {
+            const t = document.getElementById(id); 
+            t.select(); 
+            document.execCommand('copy');
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = originalText; }, 1500);
+        }
+
+        function gerarOferta() {
+            const v = document.getElementById('vOferta').value;
+            document.getElementById('resOferta').value = `🍀LIBERADO + DE 100 MIL CONTEÚDOS🍀\n\n✔️CANAIS ✔️NOVELAS\n✔️FILMES  ✔️SÉRIES\n♾♾♾♾♾♾♾♾♾♾\nGRADE COM GRANDES VARIEDADES:\n\n✅ 🎬FAZENDA 2023\n✅ ⚽️ FOX SPORTS\n✅ 🏟 PREMIERE\n✅ ⚽️ CONMEBOL LIBERTADORES \n✅ 💪 UFC\n✅ 🎭 HBO\n✅ 🎬 TELECINE\n✅ 📺 ABERTOS\n✅ 👶 INFANTIS\n✅ 🍿 FILMES E SÉRIES\n✅ 🏀 ESPORTES\n✅ 🇵🇹 INTERNACIONAIS\n✅ 📽 DOCUMENTÁRIOS\n✅ 📺 24HORAS\n✅ 🕍 RELIGIOSOS\n✅ 👩 NOVELAS\n✅ 🎤 NOTÍCIAS\n✅ 🔞 ADULTOS ⚠️ (OPCIONAL) ⚠️\n\nFUNCIONA EM:\n📌 SMART TV\n📌 TV BOX\n📌 TABLETS\n📌 NOTEBOOKS/MAC\n📌 COMPUTADOR\n📌 CELULAR (IOS E ANDROID)\n\nAproveita tudo isso por apenas R$ ${v}/mês!`;
+        }
+
+        function gerarCobranca() {
+            const n = document.getElementById('nCli').value || "Cliente";
+            const t = document.getElementById('tCobranca').value;
+            let txt = "";
+
+            if (t === "obrigado") {
+                txt = `🎉 ACESSO RENOVADO COM SUCESSO! 🎉\n\nOlá, ${n}!\n\nSeu pagamento foi confirmado e seu acesso já está renovado por mais 30 dias. ✅\n\nMuito obrigado pela confiança e preferência. Continue aproveitando o melhor do entretenimento!\n\nBom divertimento! 🍿📺`;
+            } else if (t === "expirou") {
+                txt = `⚠️ SEU ACESSO EXPIROU! ⚠️\n\nOlá, ${n}!\n\nInformamos que seu plano venceu e o sinal foi interrompido automaticamente pelo sistema. 🚫📺\n\nPara voltar a curtir todos os canais, filmes e séries, basta realizar a renovação.\n\nEstamos aguardando você para liberar seu sinal agora mesmo! 🚀`;
+            } else {
+                const msg = t === "1" ? "vence AMANHÃ!" : "vence HOJE!";
+                txt = `🔔 AVISO DE VENCIMENTO 🔔\n\nOlá, ${n}! Tudo bem?\n\nPassando para lembrar que o seu acesso ${msg} 🗓️\n\nNão deixe sua programação favorita pausar. Podemos renovar?\n\nQualquer dúvida, estamos à disposição! 🍿📺`;
+            }
+            document.getElementById('resCobranca').value = txt;
+        }
+
+        function gerarPix() {
+            const c = document.getElementById('cPix').value || "[CHAVE]";
+            const n = document.getElementById('nPix').value || "[NOME]";
+            document.getElementById('resPix').value = `💳 DADOS PARA PAGAMENTO PIX\n\n👤 Titular: ${n}\n🔑 Chave Pix: ${c}\n\n👉 Após realizar o pagamento, envie o comprovante aqui para a ativação imediata do seu sinal! ✅`;
+        }
+
+        function gerarTextoDivertido() {
+            const preco = document.getElementById('pFun').value;
+            const mensagens = [
+                `PARE TUDO! ✋🛑\nVocê ainda paga caro em streaming? 🤡 Por apenas ${preco} você tem TUDO o que os outros têm. 🤣\n✅ Canais, Filmes e Séries. Bora testar? 🍿📺`,
+                `VAMOS SER SINCEROS? 🤔\nVocê só quer chegar em casa e assistir seu jogo em paz. ⚽\nPrometo a MELHOR LISTA por apenas ${preco}. Chama aqui! 👇`,
+                `Sabe o que custa ${preco}? 🤔\nUm lanche ou... UM MÊS INTEIRO de cinema! 🍔❌ 🎬✅\nA escolha é óbvia, né? Me chama!`,
+                `O VAR analisou e confirmou: ✅\nEssa é a melhor oferta de hoje! Todos os canais por apenas ${preco}. ⚽🔥`,
+                `Cansado de "links duvidosos" que travam? 🏴‍☠️❌\nTenha qualidade profissional e zero estresse por apenas ${preco}. ✨`,
+                `Status: Com preguiça de sair, mas com vontade de ver filme. 😴🎬\nPor ${preco} eu tenho o cinema no meu sofá. Quer também?`,
+                `Sua TV é Smart mas você só usa o YouTube? 🤡\nLiberte todos os canais e filmes por ${preco}. Transforme sua sala em um cinema! 🍿`,
+                `Se somar todos os streamings hoje, dá um aluguel! 💸\nAqui você paga ${preco} e tem TODOS em um só lugar. 🧠🚀`,
+                `Diz o ditado: "Quem avisa amigo é". 📢\nTem muito filme bom saindo e você vai ficar de fora? Por ${preco} você assiste tudo! 🚀`,
+                `VOCÊ VIU ISSO? 😱\nO preço dos streamings subiu de novo... Mas aqui continua ${preco}! 🤫✨ Vem ver! 🍿`
+            ];
+            const randomMsg = mensagens[Math.floor(Math.random() * mensagens.length)];
+            document.getElementById('resFun').value = randomMsg;
+        }
+
+        function gerarNovasMensagens() {
+            const tipo = document.getElementById('tipoNovas').value;
+            let txt = "";
+            if (tipo === 'maes') {
+                txt = `🎁 MÊS DAS MÃES: PRESENTE QUE FICA! 💖\n\nSua mãe merece o melhor do entretenimento!\n✔️ Todos os canais e filmes.\n🚀 Qualidade garantida.\n\nGaranta o presente dela! 🍿`;
+            } else if (tipo === 'indicacao') {
+                txt = `👥 INDIQUE E GANHE! 🚀\n\nPara cada amigo que indicar e assinar, você ganha +30 DIAS grátis no seu plano!\n\nQuanto mais indicar, mais assiste sem pagar! 💸✨`;
+            } else if (tipo === 'suporte') {
+                txt = `🛠️ SUPORTE RÁPIDO\n\nEstá travando? Tente:\n1️⃣ Desligue TV e Roteador da tomada.\n2️⃣ Aguarde 30 segundos e ligue.\n3️⃣ Limpe o cache do app.\n\nIsso resolve 90% dos casos! 📺`;
+            }
+            document.getElementById('resNovas').value = txt;
+        }
+
+        // FUNÇÃO PARA CHAMAR A API
+        async function buscarJogosDoDia() {
+            const apiKey = document.getElementById('apiKey').value;
+            const resArea = document.getElementById('resJogos');
+
+            if (!apiKey) {
+                resArea.value = "⚠️ Por favor, insira a sua X-RapidAPI-Key para continuar.";
+                return;
+            }
+
+            resArea.value = "Buscando jogos, por favor aguarde...";
+
+            const today = "2026-05-01"; // Data de hoje
+            const url = `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${today}`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
+                        'x-rapidapi-key': apiKey
+                    }
                 });
-                item.classList.toggle('active');
-            });
-        });
+                
+                const data = await response.json();
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === "#" || href === "#planos") {
-                    e.preventDefault();
-                    const target = document.getElementById(href.substring(1));
-                    if (target) target.scrollIntoView({ behaviour: 'smooth' });
+                if (data.response && data.response.length > 0) {
+                    let txt = `⚽ JOGOS DE HOJE (${today})\n\n`;
+                    data.response.forEach(item => {
+                        txt += `🏆 ${item.league.name}\n`;
+                        txt += `⚔️ ${item.teams.home.name} x ${item.teams.away.name}\n`;
+                        txt += `⏰ ${new Date(item.fixture.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}\n`;
+                        txt += `--------------------\n`;
+                    });
+                    resArea.value = txt;
+                } else {
+                    resArea.value = "⚠️ Nenhum jogo encontrado para hoje nesta API ou houve algum problema na busca.";
                 }
-            });
-        });
+
+            } catch (error) {
+                resArea.value = "Erro ao buscar os jogos. Verifique sua chave API ou conexão com a internet.";
+                console.error("Erro:", error);
+            }
+        }
     </script>
 </body>
 </html>
