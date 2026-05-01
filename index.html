@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connecta Pro - Acesso Restrito</title>
+    <title>Connecta Pro - Painel do Revendedor</title>
     <style>
         :root {
             --bg-color: #121214;
@@ -13,6 +13,8 @@
             --accent-hover: #00875f;
             --border-color: #29292e;
             --error-color: #f75a68;
+            --whatsapp-color: #25d366;
+            --whatsapp-hover: #128c7e;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
@@ -49,9 +51,9 @@
             display: none;
         }
 
-        /* --- CONTAINER PRINCIPAL (ESCONDIDO INICIALMENTE) --- */
+        /* --- CONTAINER PRINCIPAL --- */
         #mainContent {
-            display: none; /* Esconde a ferramenta até o login */
+            display: none;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
@@ -110,9 +112,14 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
+            transition: 0.2s;
         }
 
-        .btn-copy { background-color: #29292e; margin-top: 5px; }
+        .action-btn:hover { background-color: var(--accent-hover); }
+
+        .btn-copy { background-color: #29292e; margin-top: 8px; }
+        .btn-whatsapp { background-color: var(--whatsapp-color); color: #000; margin-top: 5px; }
+        .btn-whatsapp:hover { background-color: #128c7e; color: #fff; }
 
         .logout-link {
             display: block;
@@ -159,6 +166,7 @@
             <button class="action-btn" onclick="gerarOferta()">Gerar Oferta Completa</button>
             <textarea id="resOferta" readonly></textarea>
             <button class="action-btn btn-copy" onclick="copy('resOferta')">📋 Copiar Texto</button>
+            <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resOferta')">📲 Enviar no WhatsApp</button>
         </div>
 
         <div id="secaoCobranca" class="tab-content">
@@ -173,23 +181,26 @@
                 </select>
             </div>
             <button class="action-btn" onclick="gerarCobranca()">Gerar Mensagem de Cobrança</button>
-            <textarea id="resCobranca" style="height: 180px;" readonly></textarea>
+            <textarea id="resCobranca" style="height: 160px;" readonly></textarea>
             <button class="action-btn btn-copy" onclick="copy('resCobranca')">📋 Copiar Texto</button>
+            <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resCobranca')">📲 Enviar no WhatsApp</button>
         </div>
 
         <div id="secaoPix" class="tab-content">
             <div class="input-group"><label>Sua Chave Pix:</label><input type="text" id="cPix" placeholder="E-mail, CPF ou Celular"></div>
             <div class="input-group"><label>Nome do Titular:</label><input type="text" id="nPix" placeholder="Nome do Beneficiário"></div>
             <button class="action-btn" onclick="gerarPix()">Gerar Dados de Pagamento</button>
-            <textarea id="resPix" style="height: 180px;" readonly></textarea>
+            <textarea id="resPix" style="height: 160px;" readonly></textarea>
             <button class="action-btn btn-copy" onclick="copy('resPix')">📋 Copiar Texto</button>
+            <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resPix')">📲 Enviar no WhatsApp</button>
         </div>
 
         <div id="secaoFun" class="tab-content">
             <div class="input-group"><label>Preço para o texto:</label><input type="text" id="pFun" value="R$ 25,00"></div>
             <button class="action-btn" onclick="gerarTextoDivertido()">🎲 Sortear Texto Divertido</button>
-            <textarea id="resFun" style="height: 200px;" readonly></textarea>
+            <textarea id="resFun" style="height: 180px;" readonly></textarea>
             <button class="action-btn btn-copy" onclick="copy('resFun')">📋 Copiar Texto Divertido</button>
+            <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resFun')">📲 Enviar no WhatsApp</button>
         </div>
 
         <div id="secaoNovas" class="tab-content">
@@ -202,8 +213,9 @@
                 </select>
             </div>
             <button class="action-btn" onclick="gerarNovasMensagens()">Gerar Mensagem</button>
-            <textarea id="resNovas" style="height: 200px;" readonly></textarea>
+            <textarea id="resNovas" style="height: 180px;" readonly></textarea>
             <button class="action-btn btn-copy" onclick="copy('resNovas')">📋 Copiar Texto</button>
+            <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resNovas')">📲 Enviar no WhatsApp</button>
         </div>
 
         <div id="secaoJogos" class="tab-content">
@@ -212,8 +224,9 @@
                 <input type="text" id="apiKey" placeholder="Cole sua chave aqui" value="2849cf89e2msh0c69a94f976b2c9p1afe0ajsn36a585521294">
             </div>
             <button class="action-btn" onclick="buscarJogosDoDia()">⚽ Buscar Jogos de Hoje</button>
-            <textarea id="resJogos" style="height: 220px;" placeholder="Os jogos aparecerão aqui..." readonly></textarea>
+            <textarea id="resJogos" style="height: 200px;" placeholder="Os jogos aparecerão aqui..." readonly></textarea>
             <button class="action-btn btn-copy" onclick="copy('resJogos')">📋 Copiar Jogos</button>
+            <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resJogos')">📲 Enviar no WhatsApp</button>
         </div>
 
         <span class="logout-link" onclick="location.reload()">🔒 Sair do Sistema</span>
@@ -222,7 +235,7 @@
     <div class="footer">Direitos reservados CONNECTA PRO / WebertMaster</div>
 
     <script>
-        // LÓGICA DE LOGIN 
+        // LÓGICA DE LOGIN
         function tryLogin() {
             const u = document.getElementById('userInput').value;
             const p = document.getElementById('passInput').value;
@@ -258,6 +271,14 @@
             setTimeout(() => { btn.innerText = originalText; }, 1500);
         }
 
+        // FUNÇÃO PARA ENVIAR PARA O WHATSAPP
+        function enviarWhatsApp(id) {
+            const texto = document.getElementById(id).value;
+            const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
+            window.open(url, '_blank');
+        }
+
+        // GERADORES
         function gerarOferta() {
             const v = document.getElementById('vOferta').value;
             document.getElementById('resOferta').value = `🍀LIBERADO + DE 100 MIL CONTEÚDOS🍀\n\n✔️CANAIS ✔️NOVELAS\n✔️FILMES  ✔️SÉRIES\n♾♾♾♾♾♾♾♾♾♾\nGRADE COM GRANDES VARIEDADES:\n\n✅ 🎬FAZENDA 2023\n✅ ⚽️ FOX SPORTS\n✅ 🏟 PREMIERE\n✅ ⚽️ CONMEBOL LIBERTADORES \n✅ 💪 UFC\n✅ 🎭 HBO\n✅ 🎬 TELECINE\n✅ 📺 ABERTOS\n✅ 👶 INFANTIS\n✅ 🍿 FILMES E SÉRIES\n✅ 🏀 ESPORTES\n✅ 🇵🇹 INTERNACIONAIS\n✅ 📽 DOCUMENTÁRIOS\n✅ 📺 24HORAS\n✅ 🕍 RELIGIOSOS\n✅ 👩 NOVELAS\n✅ 🎤 NOTÍCIAS\n✅ 🔞 ADULTOS ⚠️ (OPCIONAL) ⚠️\n\nFUNCIONA EM:\n📌 SMART TV\n📌 TV BOX\n📌 TABLETS\n📌 NOTEBOOKS/MAC\n📌 COMPUTADOR\n📌 CELULAR (IOS E ANDROID)\n\nAproveita tudo isso por apenas R$ ${v}/mês!`;
@@ -313,7 +334,7 @@
             } else if (tipo === 'suporte') {
                 txt = `🛠️ SUPORTE RÁPIDO\n\nEstá travando? Tente:\n1️⃣ Desligue TV e Roteador da tomada.\n2️⃣ Aguarde 30 segundos e ligue.\n3️⃣ Limpe o cache do app.\n\nIsso resolve 90% dos casos! 📺`;
             }
-            document.getElementById8('resNovas').value = txt;
+            document.getElementById('resNovas').value = txt;
         }
 
         async function buscarJogosDoDia() {
@@ -327,7 +348,7 @@
 
             resArea.value = "Buscando jogos, por favor aguarde...";
 
-            const today = "2026-05-01"; 
+            const today = "2026-05-01"; // Data fixa como exemplo
             const url = `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${today}`;
 
             try {
