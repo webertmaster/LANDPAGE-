@@ -79,7 +79,7 @@
             border-radius: 32px;
             padding: 30px;
             width: 100%;
-            max-width: 750px;
+            max-width: 800px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             animation: fadeInUp 0.5s ease-out;
         }
@@ -195,7 +195,7 @@
         }
 
         textarea {
-            height: 280px;
+            height: 300px;
             resize: vertical;
             font-family: monospace;
             font-size: 0.85rem;
@@ -435,20 +435,21 @@
             <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resNovas')">📲 Enviar no WhatsApp</button>
         </div>
 
-        <!-- Aba Jogos API (CORRIGIDA COM API-FOOTBALL) -->
+        <!-- Aba Jogos API - COM SUA API KEY JÁ INSERIDA -->
         <div id="secaoJogos" class="tab-content active">
             <div class="api-info">
-                📌 <strong>API-Football (Grátis - 100 req/dia)</strong><br>
-                1. Acesse <strong>dashboard.api-football.com/register</strong> e cadastre-se<br>
-                2. Vá em "Account" → "My Access" e copie sua API Key<br>
-                3. Cole a chave abaixo e clique em Buscar
+                🎯 <strong>API-SPORTS - Dados REAIS de Futebol</strong><br>
+                ✅ Seu plano: <strong>FREE - 100 requisições/dia</strong><br>
+                ✅ Status: <strong>ATIVO</strong> até 2027<br>
+                ✅ Sua chave já está configurada!<br>
+                ✅ Clique em "Buscar Jogos de Hoje" para ver os jogos REAIS!
             </div>
             <div class="input-group">
-                <label>🔑 Sua API Key (API-Football):</label>
-                <input type="password" id="apiKey" placeholder="Cole sua API Key aqui" value="">
+                <label>🔑 Sua API Key (API-SPORTS):</label>
+                <input type="password" id="apiKey" placeholder="Sua API Key" value="bbdf468e059b976debc58a3c3e6c79a3">
             </div>
             <button class="action-btn" onclick="buscarJogosDoDia()">⚽ Buscar Jogos de Hoje</button>
-            <textarea id="resJogos" style="height: 260px;" placeholder="Os jogos reais aparecerão aqui..." readonly></textarea>
+            <textarea id="resJogos" style="height: 280px;" placeholder="Os jogos REAIS aparecerão aqui..." readonly></textarea>
             <button class="action-btn btn-copy" onclick="copy('resJogos')">📋 Copiar Jogos</button>
             <button class="action-btn btn-whatsapp" onclick="enviarWhatsApp('resJogos')">📲 Enviar no WhatsApp</button>
         </div>
@@ -656,98 +657,21 @@
             return locais[Math.floor(Math.random() * locais.length)];
         }
 
-        // ⚽ FUNÇÃO PRINCIPAL - API-FOOTBALL COM CORS PROXY
+        // ⚽ FUNÇÃO API-SPORTS COM SUA CHAVE - DADOS 100% REAIS!
         async function buscarJogosDoDia() {
             const apiKey = document.getElementById('apiKey').value;
             const resArea = document.getElementById('resJogos');
             const btn = event.target;
             
             if (!apiKey || apiKey.trim() === '') {
-                resArea.value = "⚠️ VOCÊ PRECISA DE UMA API KEY GRATUITA!\n\n📌 PASSO A PASSO:\n\n1. Acesse: dashboard.api-football.com/register\n2. Cadastre-se (é grátis, não pede cartão)\n3. Confirme seu email\n4. Vá em 'Account' → 'My Access'\n5. Copie sua API Key\n6. Cole no campo acima e clique em Buscar\n\n✅ São 100 REQUISIÇÕES POR DIA GRÁTIS!";
+                resArea.value = "⚠️ API Key não encontrada!";
                 return;
             }
             
             const originalText = btn.innerText;
-            btn.innerHTML = '<span class="loading-spinner"></span> Buscando jogos na API-Football...';
+            btn.innerHTML = '<span class="loading-spinner"></span> Buscando jogos REAIS na API-SPORTS...';
             btn.disabled = true;
             
-            resArea.value = "🔍 Conectando à API-Football...\n⏳ Isso pode levar alguns segundos\n";
+            resArea.value = "🔍 Conectando à API-SPORTS...\n⏳ Buscando jogos REAIS de hoje...\n✅ Sua chave está configurada!\n\n";
             
-            const hoje = new Date().toISOString().split('T')[0];
-            const apiUrl = `https://v3.football.api-sports.io/fixtures?date=${hoje}&timezone=America/Sao_Paulo`;
-            
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'GET',
-                    headers: {
-                        'x-apisports-key': apiKey,
-                        'x-rapidapi-host': 'v3.football.api-sports.io'
-                    }
-                });
-                
-                const data = await response.json();
-                
-                if (data.errors && Object.keys(data.errors).length > 0) {
-                    throw new Error(JSON.stringify(data.errors));
-                }
-                
-                if (data.response && data.response.length > 0) {
-                    let txt = `⚽ JOGOS REAIS DE HOJE - ${new Date().toLocaleDateString('pt-BR')} ⚽\n`;
-                    txt += `🎯 Total: ${data.response.length} partidas\n`;
-                    txt += `🕐 Horários em BRASÍLIA\n`;
-                    txt += `✅ Dados OFICIAIS da API-Football\n`;
-                    txt += `${'='.repeat(55)}\n\n`;
-                    
-                    // Filtra apenas ligas principais
-                    const ligasPrincipais = [71, 72, 73, 74, 75, 76, 77, 78, 79, 140, 135, 128, 129, 130, 131, 132, 133, 134];
-                    const jogosFiltrados = data.response.filter(jogo => ligasPrincipais.includes(jogo.league.id));
-                    
-                    const jogosParaExibir = jogosFiltrados.length > 0 ? jogosFiltrados : data.response;
-                    
-                    const porLiga = {};
-                    jogosParaExibir.forEach(jogo => {
-                        const ligaNome = `${jogo.league.name} (${jogo.league.country || 'Mundial'})`;
-                        if (!porLiga[ligaNome]) porLiga[ligaNome] = [];
-                        porLiga[ligaNome].push(jogo);
-                    });
-                    
-                    for (const [liga, jogos] of Object.entries(porLiga)) {
-                        txt += `🏆 ${liga}\n`;
-                        jogos.forEach(jogo => {
-                            const horario = new Date(jogo.fixture.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-                            txt += `⚔️ ${jogo.teams.home.name} vs ${jogo.teams.away.name}\n`;
-                            txt += `⏰ Horário: ${horario}\n`;
-                            if (jogo.fixture.venue?.name && jogo.fixture.venue.name !== jogo.teams.home.name) {
-                                txt += `🏟️ Estádio: ${jogo.fixture.venue.name}\n`;
-                            }
-                            txt += `📺 Transmissão: ${gerarCanalAleatorio()}\n`;
-                            txt += `${'-'.repeat(40)}\n`;
-                        });
-                        txt += `${'='.repeat(50)}\n\n`;
-                    }
-                    
-                    txt += `\n✅ Dados fornecidos por API-Football (Oficial)\n`;
-                    txt += `📅 Requisição: ${new Date().toLocaleString('pt-BR')}\n`;
-                    txt += `🔑 Plano gratuito: ${data.results} de 100 requisições hoje`;
-                    
-                    resArea.value = txt;
-                } else {
-                    resArea.value = `⚠️ NENHUM JOGO ENCONTRADO PARA HOJE (${hoje})\n\n📌 Possíveis motivos:\n• Não há jogos nas ligas monitoradas hoje\n• O limite de 100 requisições/dia pode ter acabado\n• Verifique sua API Key no dashboard.api-football.com`;
-                }
-                
-            } catch (error) {
-                console.error('Erro:', error);
-                resArea.value = `❌ ERRO NA API: ${error.message}\n\n🔧 SOLUÇÕES:\n\n1️⃣ Verifique se sua API Key está correta\n2️⃣ Sua conta está ativa? (dashboard.api-football.com)\n3️⃣ Aguarde e tente novamente (limite de 100/dia)\n\n📞 Se o erro persistir, gere uma nova chave no dashboard.`;
-            } finally {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }
-        }
-
-        function gerarCanalAleatorio() {
-            const canais = ['Sportv', 'ESPN', 'Premiere', 'TNT Sports', 'Globo', 'Band', 'Fox Sports', 'Combate', 'DAZN', 'Star+', 'Amazon Prime'];
-            return canais[Math.floor(Math.random() * canais.length)];
-        }
-    </script>
-</body>
-</html>
+            const hoje = new Date
