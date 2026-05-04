@@ -168,10 +168,7 @@
 
         <!-- ABA FUTEBOL (API Inteligente) -->
         <div id="secaoFutebol" class="tab-content">
-            <div class="input-group">
-                <label>Sua API-Key (API-Sports):</label>
-                <input type="text" id="apiKeyFutebol" placeholder="Cole a Key aqui...">
-            </div>
+            <p style="color: #a8a8b3; font-size: 0.85rem; margin-bottom: 15px; text-align: center;">Busca automática dos jogos de hoje liberada pelo sistema.</p>
             <button class="action-btn" onclick="buscarJogosFutebol()" id="btnFut">⚽ Buscar Jogos de Hoje</button>
             <textarea id="resFutebol" style="height: 250px;" readonly placeholder="A agenda de jogos aparecerá aqui..."></textarea>
             <button class="action-btn btn-copy" onclick="copy(event, 'resFutebol')">📋 Copiar Agenda</button>
@@ -283,15 +280,20 @@
             document.getElementById('resNovas').value = txt;
         }
 
-        // INTEGRAÇÃO FUTEBOL (MANTIDA COM A API E CANAIS AUTOMÁTICOS)
+        // INTEGRAÇÃO FUTEBOL (MANTIDA COM A API OCULTA NO CÓDIGO)
         async function buscarJogosFutebol() {
-            const apiKey = document.getElementById('apiKeyFutebol').value.trim();
+            // Chave da API configurada diretamente no código
+            const apiKey = "5669c039614a2ca99de58744b1e0da3f"; 
+            
             const resArea = document.getElementById('resFutebol');
             const btn = document.getElementById('btnFut');
 
-            if(!apiKey) { alert("Você precisa inserir sua Key do API-Sports!"); return; }
+            if(!apiKey) { 
+                alert("Aviso do Sistema: A API Key do administrador não foi configurada no código."); 
+                return; 
+            }
 
-            btn.innerText = "⏳ Buscando na API...";
+            btn.innerText = "⏳ Buscando no sistema...";
             btn.disabled = true;
             resArea.value = "Consultando jogos de hoje... Aguarde.";
 
@@ -307,7 +309,8 @@
                 const dados = await resposta.json();
 
                 if (dados.errors && Object.keys(dados.errors).length > 0) {
-                    resArea.value = "❌ Erro na sua Key ou limite atingido:\n" + JSON.stringify(dados.errors);
+                    resArea.value = "❌ Erro de comunicação com o servidor de esportes.";
+                    console.error("Erro da API:", dados.errors);
                     return;
                 }
 
@@ -342,9 +345,7 @@
 
                 jogosFiltrados.forEach(j => {
                     let hora = new Date(j.fixture.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-                    
                     let canal = canaisPorLiga[j.league.id] || "Consultar Guia da Webflix";
-
                     textoPromocional += `${j.league.name} 🏆\n🕒 ${hora} - ${j.teams.home.name} x ${j.teams.away.name}\n📺 Canal: ${canal}\n\n`;
                 });
 
@@ -352,7 +353,7 @@
                 resArea.value = textoPromocional;
 
             } catch (error) {
-                resArea.value = "❌ Ocorreu um erro de conexão: " + error.message;
+                resArea.value = "❌ Ocorreu um erro de conexão. Tente novamente mais tarde.";
             } finally {
                 btn.innerText = "⚽ Buscar Jogos de Hoje";
                 btn.disabled = false;
